@@ -1,6 +1,35 @@
 (function () {
     const outputWindow = document.getElementById('code-output');
     const runButton = document.getElementById('run-button');
+    const resetButton = document.getElementById('reset-button');
+    const clearButton = document.getElementById('clear-button');
+    const autoRunInput = document.getElementById('auto-run');
+
+    const CURRENT_PROGRAM = 'currentProgram';
+    const AUTO_RUN = 'autoRun';
+
+    runButton.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        clearDisplay();
+        runProgram();
+    });
+
+    resetButton.addEventListener('click', function () {
+        localStorage.removeItem(CURRENT_PROGRAM);
+
+        const currentSource = getCurrentSource();
+
+        editor.setValue(currentSource);
+    });
+
+    autoRunInput.addEventListener('change', function () {
+        localStorage.setItem(AUTO_RUN, autoRunInput.checked);
+    });
+
+    clearButton.addEventListener('click', function () {
+        clearDisplay();
+    });
 
     function clearDisplay() {
         outputWindow.innerHTML = '';
@@ -17,7 +46,7 @@
             loadAndRunProgram(programSource);
         } catch (e) {
             const errorMessage = e.message;
-            
+
             const errorElement = document.createElement('h3');
             errorElement.className = "run-error";
             errorElement.textContent = errorMessage;
@@ -29,13 +58,6 @@
         lastChanged = Date.now();
     }
 
-    runButton.addEventListener('click', function (event) {
-        event.preventDefault();
-
-        clearDisplay();
-        runProgram();
-    });
-
     window.runProgram = function () {
         runProgram();
     };
@@ -43,15 +65,12 @@
     window.saveCurrentSource = function saveCurrentSource(editor) {
         const currentSource = editor.getValue();
 
-        localStorage.setItem('currentProgram', currentSource);
+        localStorage.setItem(CURRENT_PROGRAM, currentSource);
     }
-
-    const autoRunElement = document.getElementById('auto-run');
-
 
     setInterval(function () {
         const changeDiff = Date.now() - lastChanged;
-        if(autoRunElement.checked && hasChanged && changeDiff > 1500) {
+        if (autoRunInput.checked && hasChanged && changeDiff > 1500) {
             runProgram();
         }
     }, 500)
@@ -61,12 +80,19 @@
         lastChanged = Date.now();
     }
 
+    window.getAutoRunState = function getAutoRunState() {
+        const state = localStorage.getItem(AUTO_RUN);
+        return state === 'true';
+    }
+
     window.getCurrentSource = function getCurrentSource() {
-        const lastSource = localStorage.getItem('currentProgram');
+        const lastSource = localStorage.getItem(CURRENT_PROGRAM);
         const defaultSource = `begin
+    # call can be used instead of the colon notation
     let questions be (call newArray)
     let answers be (call newDictionary)
     
+    # add questions to the questions array
     appendTo: questions (newArray: "name" "What is your name?")
     appendTo: questions (newArray: "quest" "What is your quest?")
     appendTo: questions (newArray: "color" "What is your favorite color?")

@@ -7,6 +7,8 @@
     <title>The disc Programming Language -- Build Something</title>
 
     <link rel="stylesheet" href="./styles/codemirror.css">
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+
 </head>
 
 <body>
@@ -16,7 +18,9 @@
             <div class="col-12">
                 <textarea name="program-source" id="source-editor" cols="30" rows="10"></textarea>
                 <div>
-                    <button id="run-button">Rerun Your Program</button>
+                    <button id="run-button">(Re)run your program</button>
+                    <button id="reset-button">Reset to example code</button>
+                    <button id="clear-button">Clear output</button>
                     <label><input type="checkbox" checked="checked" name="auto-run" id="auto-run"> Auto-run</label>
                 </div>
             </div>
@@ -38,8 +42,10 @@
 
     <script>
         const editorTextarea = document.getElementById('source-editor');
+        const autoRunInput = document.getElementById('auto-run');
 
         editorTextarea.value = getCurrentSource();
+        autoRunInput.checked = getAutoRunState();
 
         var editor = CodeMirror.fromTextArea(editorTextarea, {
             lineNumbers: true,
