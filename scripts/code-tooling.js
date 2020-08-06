@@ -71,14 +71,16 @@
     appendTo: questions (newArray: "quest" "What is your quest?")
     appendTo: questions (newArray: "color" "What is your favorite color?")
     
-    let count be 0
+    let count be 1
     
-    repeat while (update count to count + 1) isLessOrEqualTo (lengthOf: questions)
+    repeat while count isLessOrEqualTo (lengthOf: questions)
         let question be readFrom: questions count
         let questionKey be readFrom: question 1
         let response be prompt: readFrom: question 2
         
         setOn: answers questionKey response
+
+        update count to count + 1
     end
 
     print: answers
