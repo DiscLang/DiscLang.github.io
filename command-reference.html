@@ -25,7 +25,7 @@
 
         <h2>Commands</h2>
 
-        <h3>Variables</h3>
+        <h4>Variables</h4>
 
         <dl>
             <dt>define ... as ...</dt>
@@ -51,7 +51,7 @@
             </dd>
         </dl>
 
-        <h3>Flow Control (conditions and loops)</h3>
+        <h4>Flow Control (conditions and loops)</h4>
 
         <dl>
             <dt>if ...</dt>
@@ -141,9 +141,192 @@ else if count isGreaterThan 5
 
         <h2>Operators</h2>
 
-        <h3>Arithmetic</h3>
-        <h3>Comparison</h3>
-        <h3>Logical</h3>
+        <h4>Arithmetic</h4>
+
+        <dl>
+            <dt><code>+, -, *, /</code></dt>
+            <dd>
+                <ul>
+                    <li>Addition, subtraction, multiplication, and division, respectively</li>
+                    <li>Order of operations are as follows:
+                        <ol>
+                            <li>Parenthetical grouping (parentheses)</li>
+                            <li>Multiplication and division (left to right priority)</li>
+                            <li>Addition and subtractions (left to right priority)</li>
+                        </ol>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+
+        <h4>Comparison</h4>
+
+        <dl>
+            <dt>... isLessThan ...</dt>
+            <dd>
+                <ul>
+                    <li>Produces <code>true</code> when the value on the left is less than the one on the right,
+                        otherwise <code>false</code>.</li>
+                    <li>Compares number values only</li>
+                    <li>Examples: <code>
+                        <pre>
+5 <strong>isLessThan</strong> 12 # produces true
+7 <strong>isLessThan</strong> -3 # produces false
+                        </pre>
+                    </code></li>
+                </ul>
+            </dd>
+            <dt>... isLessOrEqualTo ...</dt>
+            <dd>
+                <ul>
+                    <li>Produces <code>true</code> when the value on the left is either less, or equal to than the one
+                        on the right, otherwise <code>false</code>.</li>
+                    <li>Compares number values only</li>
+                    <li>Examples: <code>
+                        <pre>
+5 <strong>isLessOrEqualTo</strong> 12 # produces true
+7 <strong>isLessOrEqualTo</strong> 7 # produces true
+7 <strong>isLessOrEqualTo</strong> -2 # produces false
+                        </pre>
+                    </code></li>
+                </ul>
+            </dd>
+            <dt>... isGreaterThan ...</dt>
+            <dd>
+                <ul>
+                    <li>Produces <code>true</code> when the value on the left is less than the one on the right,
+                        otherwise <code>false</code>.</li>
+                    <li>Compares number values only</li>
+                    <li>Examples: <code>
+                        <pre>
+5 <strong>isGreaterThan</strong> 12 # produces false
+7 <strong>isGreaterThan</strong> -3 # produces true
+                        </pre>
+                    </code></li>
+                </ul>
+            </dd>
+            <dt>... isGreaterOrEqualTo ...</dt>
+            <dd>
+                <ul>
+                    <li>Produces <code>true</code> when the value on the left is either less, or equal to than the one
+                        on the right, otherwise <code>false</code>.</li>
+                    <li>Compares number values only</li>
+                    <li>Examples: <code>
+                        <pre>
+5 <strong>isGreaterOrEqualTo</strong> 12 # produces false
+7 <strong>isGreaterOrEqualTo</strong> 7 # produces true
+7 <strong>isGreaterOrEqualTo</strong> -2 # produces true
+                        </pre>
+                    </code></li>
+                </ul>
+            </dd>
+            <dt>... isEqualTo ...</dt>
+            <dd>
+                <ul>
+                    <li>Produces <code>true</code> when values are equal, otherwise <code>false</code>.</li>
+                    <li>Compares number, and string values only</li>
+                    <li>Examples: <code>
+                        <pre>
+7 <strong>isEqualTo</strong> 7 # produces true
+"this is fine" <strong>isEqualTo</strong> "this is fine" # produces true
+7 <strong>isEqualTo</strong> -2 # produces false
+"this is fine" <strong>isEqualTo</strong> "this is not fine" # produces false
+                        </pre>
+                    </code></li>
+                </ul>
+            </dd>
+        </dl>
+
+        <h4>Logical</h4>
+
+        <dl>
+            <dt><code>... and ..., ... or ...</code></dt>
+            <dd>
+                <ul>
+                    <li>Evaluates truthiness of a boolean expression</li>
+                    <li>Only works with boolean values</li>
+                    <li>Examples: <code>
+                        <pre>
+(count isLessThan 3) <strong>and</strong> (count isGreaterThan 0)
+(count isLessThan 3) <strong>or</strong> (count isGreaterThan 0)
+                        </pre>
+                    </code></li>
+                </ul>
+            </dd>
+        </dl>
+
+        <h4>Other</h4>
+
+        <dl>
+            <dt>call ... (with ...)</dt>
+            <dd>
+                <ul>
+                    <li>Calls a function, optionally with arguments</li>
+                    <li>Examples:
+                        <code>
+                            <pre>
+let myArray be (call newArray)
+let myArray be (call newArray with 1 2 3 4)
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
+            <dt><code>...: ...</code></dt>
+            <dd>
+                <ul>
+                    <li>Shorthand for call</li>
+                    <li>Examples:
+                        <code>
+                            <pre>
+let myArray be (newArray:)
+let myArray be (newArray: 1 2 3 4)
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
+            <dt>toInfix ...</dt>
+            <dd>
+                <ul>
+                    <li>Turns a function into an infix operator</li>
+                    <li>Example:
+                        <code>
+                            <pre>
+# without toInfix
+join: "a left-handed string" "a right-handed string"
+# with toInfix
+toInfix "a left-handed string" join "a right-handed string"
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
+            <dt><code>:: ...</code></dt>
+            <dd>
+                <ul>
+                    <li>Shorthand for <code>toInfix</code></li>
+                    <li>Example:
+                        <code>
+                            <pre>
+# without :: (toInfix)
+join: "a left-handed string" "a right-handed string"
+# with :: (toInfix)
+:: "a left-handed string" join "a right-handed string"
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+
+        <h2>Functions</h2>
+
+        <h4>Array</h4>
+        <h4>Dictionary</h4>
+        <h4>String</h4>
+        <h4>User Input/Output</h4>
+        <h4>Mathematical</h4>
     </div>
 </body>
 
