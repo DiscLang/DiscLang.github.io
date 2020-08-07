@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The disc Programming Language -- The Command Reference</title>
+
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>The disc Command, Function, and Operator Reference</h1>
+
+        <p>
+            <strong>WARNING: This document will not teach you to program.</strong>
+        </p>
+
+        <p>
+            This document collects the basic commands, operators, and other good stuff the disc language has to offer in
+            a no-nonsense listing. This will not teach you how to program, how to be a better programmer, or how to
+            program differently. It's just a list of things and what they do. Thanks for your attention.
+        </p>
+
+        <h2>Commands</h2>
+
+        <h3>Variables</h3>
+
+        <dl>
+            <dt>define ... as ...</dt>
+            <dd>
+                <ul>
+                    <li>Defines a new block-level constant. Constants cannot be updated.</li>
+                    <li>Example: <code><strong>define</strong> PI <strong>as</strong> 3.14159</code></li>
+                </ul>
+            </dd>
+            <dt>let ... be ...</dt>
+            <dd>
+                <ul>
+                    <li>Defines a new block-level variable. These variables can be updated.</li>
+                    <li>Example: <code><strong>let</strong> clifford <strong>be</strong> "Big red dog"</code></li>
+                </ul>
+            </dd>
+            <dt>update ... to ...</dt>
+            <dd>
+                <ul>
+                    <li>Updates variable with a new value. Update cannot change the value of defined constants.</li>
+                    <li>Example: <code><strong>update</strong> count <strong>to</strong> count + 1</code></li>
+                </ul>
+            </dd>
+        </dl>
+
+        <h3>Flow Control (conditions and loops)</h3>
+
+        <dl>
+            <dt>if ...</dt>
+            <dd>
+                <ul>
+                    <li>Runs containing code only if the condition is met.</li>
+                    <li>Runs all code contained before "end"</li>
+                    <li>Example:
+                        <code>
+                            <pre>
+<strong>if</strong> count isEqualTo 3
+    print: "Count is three"
+<strong>end</strong>
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
+            <dt>else if ...</dt>
+            <dd>
+                <ul>
+                    <li>Runs containing code only if the previous condition is NOT met, and this condition is.</li>
+                    <li>Runs all code contained before "end"</li>
+                    <li>Example:
+                        <code>
+                            <pre>
+if count isEqualTo 3
+    print: "Count is three"
+<strong>else if</strong> count isGreaterThan 5
+    print: "No, no, MUCH bigger than 3"
+<strong>end</strong>
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
+            <dt>else</dt>
+            <dd>
+                <ul>
+                    <li>Runs containing code only if all previous conditions are NOT met.</li>
+                    <li>Runs all code contained before "end"</li>
+                    <li>Example:
+                        <code>
+                            <pre>
+if count isEqualTo 3
+    print: "Count is three"
+else if count isGreaterThan 5
+    print: "No, no, MUCH bigger than 3"
+<strong>else</strong>
+    print: "No, it's far smaller than 3"
+<strong>end</strong>
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
+            <dt>loop while ...</dt>
+            <dd>
+                <ul>
+                    <li>Loops while the given condition is true.</li>
+                    <li>Repeats the lines between "loop while" and "end"</li>
+                    <li>Example: <code>
+                        <pre>
+<strong>loop while</strong> count isLessThan 5
+    print: join: "Looping to five. Current count: " count
+<strong>end</strong>
+</pre>
+</code></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt>repeat while ...</dt>
+            <dd>
+                <ul>
+                    <li>Alias of "loop while"</li>
+                    <li>Example: <code>
+                        <pre>
+<strong>repeat while</strong> count isLessThan 5
+    print: join: "Looping to five. Current count: " count
+<strong>end</strong>
+</pre>
+</code></li>
+                </ul>
+            </dd>
+        </dl>
+
+        <h2>Operators</h2>
+
+        <h3>Arithmetic</h3>
+        <h3>Comparison</h3>
+        <h3>Logical</h3>
+    </div>
+</body>
+
+</html>
