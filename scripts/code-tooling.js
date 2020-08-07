@@ -97,6 +97,7 @@
     appendTo: questions (newArray: "quest" "What is your quest?")
     appendTo: questions (newArray: "color" "What is your favorite color?")
     
+    # Array indices start at 1
     let count be 1
     
     repeat while count isLessOrEqualTo (lengthOf: questions)
@@ -109,7 +110,17 @@
         update count to count + 1
     end
 
-    print: answers
+    let badName be (readFrom: answers "name") isEqualTo ""
+    let badQuest be not: ((toLowerCase: quest) isEqualTo "i seek the holy grail")
+    let badColor be (readFrom: answers "color") isEqualTo ""
+
+    if badName or badQuest or badColor
+        print: "... and that's how you ended up in the pit."
+    else
+        print: join: "Congrats " (readFrom: answers "name") "!"
+        print: join: "You managed to escape the pit on your quest."
+        print: join: "Here's a shirt for you. The text is " (readFrom: answers "color") " just like you like it."
+    end
 
 end`;
 

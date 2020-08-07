@@ -34,6 +34,8 @@
     </div>
 
     <script src="./scripts/codemirror.js"></script>
+    <script src="./scripts/simple-mode.js"></script>
+    <script src="./scripts/disc-lang-mode.js"></script>
 
     <script src="./scripts/web-interface.js"></script>
     <script src="./scripts/disc-lang.min.js"></script>
@@ -49,7 +51,8 @@
 
         var editor = CodeMirror.fromTextArea(editorTextarea, {
             lineNumbers: true,
-            lineWrapping: true
+            lineWrapping: true,
+            mode: 'disc-lang'
         });
 
         editor.on('change', function (editor) {
