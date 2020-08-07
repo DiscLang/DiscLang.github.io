@@ -111,7 +111,8 @@
     end
 
     let badName be (readFrom: answers "name") isEqualTo ""
-    let badQuest be not: ((toLowerCase: quest) isEqualTo "i seek the holy grail")
+	let acceptableQuest be "I seek the holy grail"
+    let badQuest be not: ((toLowerCase: quest) isEqualTo (toLowerCase: acceptableQuest))
     let badColor be (readFrom: answers "color") isEqualTo ""
 
     if badName or badQuest or badColor
