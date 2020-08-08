@@ -13,19 +13,19 @@ CodeMirror.defineSimpleMode("disc-lang", {
        token: ["keyword", null, "variable-2"]},
       // Rules are matched in the order in which they appear, so there is
       // no ambiguity between this one and the one above
-      {regex: /(?:let|define|update|be|as|to|call|begin|end|if|loop|repeat|while|else)\b/,
+      {regex: /(?:let|define|declare|function|withParameters|update|be|as|to|call|begin|end|if|loop|repeat|while|else)\b/i,
        token: "keyword"},
       {regex: /(?:([A-Z0-9_])+)\b/, token: "variable-3"},
-      {regex: /true|false|null|undefined/, token: "atom"},
+      {regex: /true|false/i, token: "atom"},
       {regex: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
        token: "number"},
       {regex: /\/\/.*/, token: "comment"},
       {regex: /\/(?:[^\\]|\\.)*?\//, token: "variable-3"},
       // A next property will cause the mode to move to a different state
       {regex: /\#.*$/, token: "comment"},
-      {regex: /([-+\/*]+|isEqualTo|isLessThan|isGreaterThan|isLessOrEqualTo|isGreaterOrEqualTo|or|and)/, token: ["variable-2"]},
+      {regex: /([-+\/*]+|isEqualTo|isLessThan|isGreaterThan|isLessOrEqualTo|isGreaterOrEqualTo|or|and)/i, token: ["variable-2"]},
       // indent and dedent properties guide autoindentation
-      {regex: /(begin|loop|repeat|if|else)/, indent: true},
+      {regex: /(begin|loop|repeat|if|else)/i, indent: true},
       {regex: /end/, dedent: true}
       // {regex: /[a-z$][\w$]*/, token: "variable"},
     ],

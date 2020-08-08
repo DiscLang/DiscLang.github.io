@@ -34,6 +34,7 @@
     </div>
 
     <script src="./scripts/codemirror.js"></script>
+
     <script src="./scripts/simple-mode.js"></script>
     <script src="./scripts/disc-lang-mode.js"></script>
 
@@ -50,9 +51,10 @@
         autoRunInput.checked = getAutoRunState();
 
         var editor = CodeMirror.fromTextArea(editorTextarea, {
+            extraKeys: {"Ctrl-Space": "autocomplete"},
             lineNumbers: true,
             lineWrapping: true,
-            mode: 'disc-lang'
+            mode: {name: 'disc-lang'}
         });
 
         editor.on('change', function (editor) {

@@ -258,6 +258,23 @@ else if count isGreaterThan 5
         <h4>Other</h4>
 
         <dl>
+            <dt>declare function ... (withParameters ...)</dt>
+            <dd>
+                <ul>
+                    <li>Declares a new function, optionally with parameters</li>
+                    <li>Example: 
+                        <code>
+                            <pre>
+declare function displayScore withParameters wins losses ties
+    call clear
+
+    print: join: "wins: " wins " losses: " losses " ties: " ties
+end
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
             <dt>call ... (with ...)</dt>
             <dd>
                 <ul>
@@ -382,6 +399,8 @@ join: "a left-handed string" "a right-handed string"
 
         <dl>
             <dt>print ...</dt>
+
+            <dt>clear</dt>
 
             <dt>prompt ...</dt>
 

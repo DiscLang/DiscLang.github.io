@@ -99,47 +99,70 @@
     let losses be 0
     let ties be 0
 
-    repeat while playAgain
+    declare function displayScore
         call clear
 
         print: join: "wins: " wins " losses: " losses " ties: " ties
+    end
 
-        let computerChoice be readFrom: options (random: 1 4)
+    declare function didUserWin withParameters userChoice computerChoice
+        let rockWin be (userChoice isEqualTo ROCK) and (computerChoice isEqualTo SCISSORS)
+        let paperWin be (userChoice isEqualTo PAPER) and (computerChoice isEqualTo ROCK)
+        let scissorsWin be (userChoice isEqualTo SCISSORS) and (computerChoice isEqualTo PAPER)
+
+        (rockWin or paperWin or scissorsWin)
+    end
+
+    declare function wasGameATie withParameters userChoice computerChoice
+        (userChoice isEqualTo computerChoice)
+    end
+
+    declare function getUserChoice
         let userChoice be ""
 
         repeat while not: ((userChoice isEqualTo ROCK) or (userChoice isEqualTo PAPER) or (userChoice isEqualTo SCISSORS))
             update userChoice to toLowerCase: (prompt: "Rock, paper, or scissors? ")
         end
+    end
 
-        print: join: "The computer chose: " computerChoice
-        print: join: "You chose: " userChoice
-
-        let rockWin be (userChoice isEqualTo ROCK) and (computerChoice isEqualTo SCISSORS)
-        let paperWin be (userChoice isEqualTo PAPER) and (computerChoice isEqualTo ROCK)
-        let scissorsWin be (userChoice isEqualTo SCISSORS) and (computerChoice isEqualTo PAPER)
-
-        if rockWin or paperWin or scissorsWin
-            update wins to wins + 1
-            print: "You won!"
-        else if userChoice isEqualTo computerChoice
-            update ties to ties + 1
-            print: "Tie game."
-        else
-            update losses to losses + 1
-            print: "Better luck next time."
-        end
-
+    declare function haveRematch
         let rematch be ""
 
         repeat while (not: (rematch isEqualTo "y")) and (not: (rematch isEqualTo "n"))
             update rematch to toLowerCase: (prompt: "Rematch? (y/n)")
         end
 
-        update playAgain to rematch isEqualTo "y"
+        (rematch isEqualTo "y")
     end
 
-    call clear
-    print: join: "wins: " wins " losses: " losses " ties: " ties
+    declare function updateScore withParameters userChoice computerChoice
+        if (didUserWin: userChoice computerChoice)
+            update wins to wins + 1
+            print: "You won!"
+        else if (wasGameATie: userChoice computerChoice)
+            update ties to ties + 1
+            print: "Tie game."
+        else
+            update losses to losses + 1
+            print: "Better luck next time."
+        end
+    end
+
+    repeat while playAgain
+        call displayScore
+
+        let computerChoice be readFrom: options (random: 1 4)
+        let userChoice be (call getUserChoice)
+
+        print: join: "The computer chose: " computerChoice
+        print: join: "You chose: " userChoice
+
+        call updateScore with userChoice computerChoice
+
+        update playAgain to (call haveRematch)
+    end
+
+    call displayScore
 
 end`;
 
