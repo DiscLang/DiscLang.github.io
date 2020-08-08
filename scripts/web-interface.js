@@ -8,4 +8,8 @@
 
         outputWindow.appendChild(line);
     }
+
+    window.clear = function () {
+        outputWindow.innerHTML = '';
+    }
 })();
