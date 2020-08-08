@@ -125,26 +125,26 @@
         end
     end
 
-    declare function haveRematch
+    declare function haveRematch withParameters gameMessage
         let rematch be ""
 
         repeat while (not: (rematch isEqualTo "y")) and (not: (rematch isEqualTo "n"))
-            update rematch to toLowerCase: (prompt: "Rematch? (y/n)")
+            update rematch to toLowerCase: (prompt: join: gameMessage " Rematch? (y/n)")
         end
 
         (rematch isEqualTo "y")
     end
 
-    declare function updateScore withParameters userChoice computerChoice
+    declare function updateScoreAndGetMessage withParameters userChoice computerChoice
         if (didUserWin: userChoice computerChoice)
             update wins to wins + 1
-            print: "You won!"
+            "You won!"
         else if (wasGameATie: userChoice computerChoice)
             update ties to ties + 1
-            print: "Tie game."
+            "Tie game."
         else
             update losses to losses + 1
-            print: "Better luck next time."
+            "You lost, better luck next time."
         end
     end
 
@@ -157,9 +157,11 @@
         print: join: "The computer chose: " computerChoice
         print: join: "You chose: " userChoice
 
-        call updateScore with userChoice computerChoice
+        let message be updateScoreAndGetMessage: userChoice computerChoice
 
-        update playAgain to (call haveRematch)
+        print: message
+
+        update playAgain to haveRematch: message
     end
 
     call displayScore
