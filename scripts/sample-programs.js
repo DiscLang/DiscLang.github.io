@@ -1,6 +1,6 @@
-(function () {
+const samplePrograms = (function () {
 
-    const montyPython = `begin
+	const montyPython = `begin
     # call can be used instead of the colon notation
     let questions be (call newArray)
     let answers be (call newDictionary)
@@ -24,6 +24,7 @@
     end
 
     let badName be (readFrom: answers "name") isEqualTo ""
+	let quest be readFrom: answers "quest"
     let acceptableQuest be "I seek the holy grail"
     let badQuest be not: ((toLowerCase: quest) isEqualTo (toLowerCase: acceptableQuest))
     let badColor be (readFrom: answers "color") isEqualTo ""
@@ -38,79 +39,108 @@
 
 end`;
 
-    const rockPaperScissors = `begin
-	define ROCK as "rock"
-	define PAPER as "paper"
-	define SCISSORS as "scissors"
+	const rockPaperScissors = `begin
+    define ROCK as "rock"
+    define PAPER as "paper"
+    define SCISSORS as "scissors"
 
-	let options be newArray: ROCK PAPER SCISSORS
-	let playAgain be true
+    let options be newArray: ROCK PAPER SCISSORS
+    let playAgain be true
 
-	let wins be 0
-	let losses be 0
-	let ties be 0
+    let wins be 0
+    let losses be 0
+    let ties be 0
 
-	repeat while playAgain
-		call clear
+    declare function displayScore
+        call clearScreen
 
-		print: join: "wins: " wins " losses: " losses " ties: " ties
+		print: "Rock, Paper, Scissors"
+		print: "---------------------"
+        print: join: "wins: " wins " losses: " losses " ties: " ties
+    end
 
-		let computerChoice be readFrom: options (random: 1 4)
-		let userChoice be ""
+    declare function didUserWin withParameters userChoice computerChoice
+        let rockWin be (userChoice isEqualTo ROCK) and (computerChoice isEqualTo SCISSORS)
+        let paperWin be (userChoice isEqualTo PAPER) and (computerChoice isEqualTo ROCK)
+        let scissorsWin be (userChoice isEqualTo SCISSORS) and (computerChoice isEqualTo PAPER)
 
-		repeat while not: ((userChoice isEqualTo ROCK) or (userChoice isEqualTo PAPER) or (userChoice isEqualTo SCISSORS))
-			update userChoice to toLowerCase: (prompt: "Rock, paper, or scissors? ")
-		end
+        (rockWin or paperWin or scissorsWin)
+    end
 
-		print: join: "The computer chose: " computerChoice
-		print: join: "You chose: " userChoice
+    declare function wasGameATie withParameters userChoice computerChoice
+        (userChoice isEqualTo computerChoice)
+    end
 
-		let rockWin be (userChoice isEqualTo ROCK) and (computerChoice isEqualTo SCISSORS)
-		let paperWin be (userChoice isEqualTo PAPER) and (computerChoice isEqualTo ROCK)
-		let scissorsWin be (userChoice isEqualTo SCISSORS) and (computerChoice isEqualTo PAPER)
+    declare function getUserChoice
+        let userChoice be ""
 
-		if rockWin or paperWin or scissorsWin
-			update wins to wins + 1
-			print: "You won!"
-		else if userChoice isEqualTo computerChoice
-			update ties to ties + 1
-			print: "Tie game."
-		else
-			update losses to losses + 1
-			print: "Better luck next time."
-		end
+        repeat while not: ((userChoice isEqualTo ROCK) or (userChoice isEqualTo PAPER) or (userChoice isEqualTo SCISSORS))
+            update userChoice to toLowerCase: (prompt: "Rock, paper, or scissors? ")
+        end
+    end
 
-		let rematch be ""
+    declare function haveRematch withParameters gameMessage
+        let rematch be ""
 
-		repeat while (not: (rematch isEqualTo "y")) and (not: (rematch isEqualTo "n"))
-			update rematch to toLowerCase: (prompt: "Rematch? (y/n)")
-		end
+        repeat while (not: (rematch isEqualTo "y")) and (not: (rematch isEqualTo "n"))
+            update rematch to toLowerCase: (prompt: join: gameMessage " Rematch? (y/n)")
+        end
 
-		update playAgain to rematch isEqualTo "y"
-	end
+        (rematch isEqualTo "y")
+    end
 
-	call clear
-	print: join: "wins: " wins " losses: " losses " ties: " ties
+    declare function updateScoreAndGetMessage withParameters userChoice computerChoice
+        if (didUserWin: userChoice computerChoice)
+            update wins to wins + 1
+            "You won!"
+        else if (wasGameATie: userChoice computerChoice)
+            update ties to ties + 1
+            "Tie game."
+        else
+            update losses to losses + 1
+            "You lost, better luck next time."
+        end
+    end
+
+    repeat while playAgain
+        call displayScore
+
+        let computerChoice be readFrom: options (random: 1 4)
+        let userChoice be (call getUserChoice)
+
+        print: join: "The computer chose: " computerChoice
+        print: join: "You chose: " userChoice
+
+        let message be updateScoreAndGetMessage: userChoice computerChoice
+
+        print: message
+
+        update playAgain to haveRematch: message
+    end
+
+    call displayScore
 
 end`;
 
-    const coinToss = `begin
+	const coinToss = `begin
 	define sides as newArray: "Heads" "Tails"
 
 	let tossResult be readFrom: sides random: 1 3
-		
+	
+	print: "Coin Toss"
+	print: "---------"
 	print: tossResult
 end`;
 
-    const helloWorld = `begin
+	const helloWorld = `begin
 	print: "Hello, World!"
 end`;
 
-    return {
-        "Hello World": helloWorld,
-        "Coin Toss": coinToss,
-        "Rock, Paper, Scissors": rockPaperScissors,
-        "Monty Python": montyPython
-    }
+	return {
+		"Hello World": helloWorld,
+		"Coin Toss": coinToss,
+		"Monty Python": montyPython,
+		"Rock, Paper, Scissors": rockPaperScissors
+	}
 })();
 

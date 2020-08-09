@@ -3,7 +3,7 @@
 
     window.print = function (...args) {
         const content = args.join('');
-        const line = document.createElement('pre');
+        const line = document.createElement('code');
         line.textContent = content;
 
         outputWindow.appendChild(line);

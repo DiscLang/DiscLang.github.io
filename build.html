@@ -4,27 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The disc Programming Language -- Build Something</title>
+    <title>The disc Programming Language -- Create Something New</title>
 
     <link rel="stylesheet" href="./styles/codemirror.css">
+    <link rel="stylesheet" href="./styles/panda-syntax.css">
     <link rel="stylesheet" href="./styles/bootstrap.min.css">
+
+    <link rel="stylesheet" href="./styles/styles.css">
 
 </head>
 
 <body>
+    <header class="container">
+        <h1>The disc Language : Create Something New</h1>
+        <nav class="nav navbar">
+            <ul class="nav-list text-center">
+                <li><a href="./">home</a></li>
+                <li><a href="./build.html">create something</a></li>
+                <li><a href="./command-reference.html">language reference</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="container">
+    <div class="container control-set">
         <div class="row">
+            <div class="col-8">
+                <select name="example-code" id="example-code">
+                </select>
+                <button id="load-example">Load Example</button>
+            </div>
+            <div class="col-4 text-right">
+                <a href="#" id="toggle-code-view">Hide Code</a>
+            </div>
+        </div>
+        <div class="row" id="code-view">
             <div class="col-12">
                 <textarea name="program-source" id="source-editor" cols="30" rows="10"></textarea>
-                <div>
-                    <button id="run-button">(Re)run your program</button>
-                    <button id="reset-button">Reset to example code</button>
-                    <button id="clear-button">Clear output</button>
-                    <label><input type="checkbox" checked="checked" name="auto-run" id="auto-run"> Auto-run</label>
-                </div>
+            </div>
+        </div>
+
+        <div class="row control-set">
+            <div class="col-md-10 col-sm-8">
+                <a href="#" id="run-button">Run your program &gt;&gt;</a>
             </div>
 
+            <div class="col-md-2 col-sm-4 text-right">
+                <a href="#" id="clear-button">Clear output <span class="clear-marker text-center">X</span></a>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-12">
                 <div id="code-output">
                     &nbsp;
@@ -41,26 +70,25 @@
     <script src="./scripts/web-interface.js"></script>
     <script src="./scripts/disc-lang.min.js"></script>
 
+    <script src="./scripts/sample-programs.js"></script>
+
     <script src="./scripts/code-tooling.js"></script>
 
     <script>
         const editorTextarea = document.getElementById('source-editor');
-        const autoRunInput = document.getElementById('auto-run');
 
         editorTextarea.value = getCurrentSource();
-        autoRunInput.checked = getAutoRunState();
 
         var editor = CodeMirror.fromTextArea(editorTextarea, {
-            extraKeys: {"Ctrl-Space": "autocomplete"},
+            extraKeys: { "Ctrl-Space": "autocomplete" },
             lineNumbers: true,
             lineWrapping: true,
-            mode: {name: 'disc-lang'}
+            mode: { name: 'disc-lang' },
+            theme: "panda-syntax"
         });
 
         editor.on('change', function (editor) {
             saveCurrentSource(editor);
-
-            autoRunner()
         });
     </script>
 
