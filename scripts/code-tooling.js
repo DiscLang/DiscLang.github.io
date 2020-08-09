@@ -100,7 +100,7 @@
     let ties be 0
 
     declare function displayScore
-        call clear
+        call clearScreen
 
         print: join: "wins: " wins " losses: " losses " ties: " ties
     end
