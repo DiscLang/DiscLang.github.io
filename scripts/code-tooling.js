@@ -21,17 +21,22 @@
         editor.focus();
     });
 
+    function loadSource(exampleName) {
+        const source = samplePrograms[exampleName];
+
+        showCode();
+
+        editor.setValue(source);
+    }
+
     codeExampleSelect.addEventListener('click', function (event) {
-            event.preventDefault();
+        event.preventDefault();
 
-            const selectedIndex = exampleCodeSelectElement.selectedIndex;
-            const selectedExampleName = exampleCodeSelectElement.options[selectedIndex].value;
-            const source = samplePrograms[selectedExampleName];
+        const selectedIndex = exampleCodeSelectElement.selectedIndex;
+        const selectedExampleName = exampleCodeSelectElement.options[selectedIndex].value;
 
-            showCode();
-
-            editor.setValue(source);
-        });
+        loadSource(selectedExampleName);
+    });
 
     newProgramButton.addEventListener('click', function (event) {
         event.preventDefault();
@@ -40,7 +45,7 @@
 
         editor.focus();
         editor.setCursor(1, 0);
-});
+    });
 
     runButton.addEventListener('click', function (event) {
         event.preventDefault();
@@ -125,4 +130,36 @@
 
             exampleCodeSelectElement.appendChild(option);
         });
+
+    const searchMap = decodeURI(window.location.href)
+        .split('?')
+        .pop()
+        .split('&')
+        .map(token => token.split('='))
+        .reduce((finalMap, [key, value]) => {
+            finalMap[key] = value;
+            return finalMap;
+        }, {});
+
+    if (typeof searchMap.source === 'string') {
+        const intervalId = setInterval(function () {
+            if (typeof editor !== 'undefined') {
+                clearInterval(intervalId);
+
+                loadSource(searchMap.source);
+                editor.setOption("readOnly", true);
+
+                console.log(exampleCodeSelectElement.options);
+
+                const option = Array.prototype.slice.call(exampleCodeSelectElement.options, 0)
+                    .find(option => option.value === searchMap.source);
+
+                option.selected = true;
+
+                codeExampleSelect.disabled = true;
+                exampleCodeSelectElement.disabled = true;
+                newProgramButton.disabled = true;
+            }
+        }, 50);
+    }
 })();
