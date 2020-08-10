@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="./styles/codemirror.css">
     <link rel="stylesheet" href="./styles/panda-syntax.css">
+    <link rel="stylesheet" href="./styles/fullscreen.css">
     <link rel="stylesheet" href="./styles/bootstrap.min.css">
 
     <link rel="stylesheet" href="./styles/styles.css">
@@ -32,8 +33,10 @@
                 <select name="example-code" id="example-code">
                 </select>
                 <button id="load-example">Load Example</button>
+                <button id="new-program">New Program</button>
             </div>
             <div class="col-4 text-right">
+                <a href="#" id="view-full-screen" title="Press F9 for full screen">View Code Full Screen (Esc to quit)</a> |
                 <a href="#" id="toggle-code-view">Hide Code</a>
             </div>
         </div>
@@ -44,11 +47,11 @@
         </div>
 
         <div class="row control-set">
-            <div class="col-md-10 col-sm-8">
+            <div class="col-md-10 col-sm-8 col-xs-6">
                 <a href="#" id="run-button">Run your program &gt;&gt;</a>
             </div>
 
-            <div class="col-md-2 col-sm-4 text-right">
+            <div class="col-md-2 col-sm-4  col-xs-6 text-right">
                 <a href="#" id="clear-button">Clear output <span class="clear-marker text-center">X</span></a>
             </div>
         </div>
@@ -67,6 +70,8 @@
     <script src="./scripts/simple-mode.js"></script>
     <script src="./scripts/disc-lang-mode.js"></script>
 
+    <script src="./scripts/fullscreen.js"></script>
+
     <script src="./scripts/web-interface.js"></script>
     <script src="./scripts/disc-lang.min.js"></script>
 
@@ -84,7 +89,16 @@
             lineNumbers: true,
             lineWrapping: true,
             mode: { name: 'disc-lang' },
-            theme: "panda-syntax"
+            theme: "panda-syntax",
+            indentUnit: 4,
+            extraKeys: {
+                "F9": function (editor) {
+                    editor.setOption("fullScreen", true);
+                },
+                Esc: function (editor) {
+                    editor.setOption("fullScreen", false);
+                }
+            }
         });
 
         editor.on('change', function (editor) {

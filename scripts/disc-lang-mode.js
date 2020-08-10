@@ -23,7 +23,8 @@ CodeMirror.defineSimpleMode("disc-lang", {
       {regex: /\/(?:[^\\]|\\.)*?\//, token: "variable-3"},
       // A next property will cause the mode to move to a different state
       {regex: /\#.*$/, token: "comment"},
-      {regex: /([-+\/*]+|isEqualTo|isLessThan|isGreaterThan|isLessOrEqualTo|isGreaterOrEqualTo|or|and)/i, token: ["variable-2"]},
+      {regex: /\s([-+\/*]+|isEqualTo|isLessThan|isGreaterThan|isLessOrEqualTo|isGreaterOrEqualTo|or|and)/i, token: ["variable-2"]},
+      {regex: /\s(\.\.\.)(\s|$)/, token: "variable-2"},
       // indent and dedent properties guide autoindentation
       {regex: /(begin|loop|repeat|if|else)/i, indent: true},
       {regex: /end/, dedent: true}

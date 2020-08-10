@@ -5,8 +5,42 @@
     const exampleCodeSelectElement = document.getElementById('example-code');
     const toggleCodeView = document.getElementById('toggle-code-view');
     const codeView = document.getElementById('code-view');
+    const newProgramButton = document.getElementById('new-program');
+    const codeExampleSelect = document.getElementById('load-example');
+    const fullScreenLink = document.getElementById('view-full-screen');
 
     const CURRENT_PROGRAM = 'currentProgram';
+
+    fullScreenLink.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        console.log(editor.getOption("fullScreen"));
+
+        editor.setOption("fullScreen", true);
+
+        editor.focus();
+    });
+
+    codeExampleSelect.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const selectedIndex = exampleCodeSelectElement.selectedIndex;
+            const selectedExampleName = exampleCodeSelectElement.options[selectedIndex].value;
+            const source = samplePrograms[selectedExampleName];
+
+            showCode();
+
+            editor.setValue(source);
+        });
+
+    newProgramButton.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        editor.setValue('begin\n\nend');
+
+        editor.focus();
+        editor.setCursor(1, 0);
+});
 
     runButton.addEventListener('click', function (event) {
         event.preventDefault();
@@ -90,18 +124,5 @@
             option.text = programName;
 
             exampleCodeSelectElement.appendChild(option);
-        });
-
-    document.querySelector('#load-example')
-        .addEventListener('click', function (event) {
-            event.preventDefault();
-
-            const selectedIndex = exampleCodeSelectElement.selectedIndex;
-            const selectedExampleName = exampleCodeSelectElement.options[selectedIndex].value;
-            const source = samplePrograms[selectedExampleName];
-
-            showCode();
-            
-            editor.setValue(source);
         });
 })();
