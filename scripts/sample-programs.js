@@ -17,7 +17,7 @@ const samplePrograms = (function () {
 
 	end
 
-	declare function between withParameters value min max
+	declare function isBetween withParameters value min max
 		(value isGreaterThan min) and (value isLessThan max)
 	end
 
@@ -55,7 +55,7 @@ const samplePrograms = (function () {
 
 		let livingNeighbors be getLivingNeighborCount: currentState xCoord yCoord
 
-		let isLivingAndStable be currentCellIsLiving and (:: livingNeighbors between 1 4)
+		let isLivingAndStable be currentCellIsLiving and (:: livingNeighbors isBetween 1 4)
 		let isReproducing be (not: currentCellIsLiving) and (livingNeighbors isEqualTo 3)
 
 		if isLivingAndStable or isReproducing
