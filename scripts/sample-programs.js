@@ -53,11 +53,12 @@ const samplePrograms = (function () {
 		
 		let currentCell be readFrom: (readFrom: currentState xCoord) yCoord
 		let currentCellIsLiving be currentCell isEqualTo LIVE_CELL
+		let currentCellIsDead be currentCell isEqualTo DEAD_CELL
 
 		let livingNeighbors be getLivingNeighborCount: currentState xCoord yCoord
 
 		let isLivingAndStable be currentCellIsLiving and (:: livingNeighbors isBetween 1 4)
-		let isReproducing be (not: currentCellIsLiving) and (livingNeighbors isEqualTo 3)
+		let isReproducing be currentCellIsDead and (livingNeighbors isEqualTo 3)
 
 		if isLivingAndStable or isReproducing
 			LIVE_CELL
