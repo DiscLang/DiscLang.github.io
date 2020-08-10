@@ -139,14 +139,23 @@ const samplePrograms = (function () {
 
 	let currentBoard be call getNewBoard
 
-	repeat while true
+    let counter be 1
+    let terminationCount be 150
+        
+	repeat while counter isLessThan terminationCount
 		call clearScreen
 
+        if (counter isLessThan (terminationCount - 1))
+        	print: join: "Running. " (terminationCount - counter)
+        else
+        	print: "Done."
+        end
+        
 		printBoard: currentBoard
 
 		update currentBoard to getNextBoard: currentBoard
-
-		wait: 0.0625
+		update counter to counter + 1
+		wait: 0.03125
 	end
 
 end`
