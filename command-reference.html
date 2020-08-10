@@ -270,6 +270,22 @@ else if count isGreaterThan 5
         <h4>Other</h4>
 
         <dl>
+            <dt><code>...</code></dt>
+            <dd>
+                <ul>
+                    <li>Line continuation operator, yes it's '...'</li>
+                    <li>Example:
+                        <code>
+                            <pre>
+                                let numberIsInRange be ...
+                                    number isLessThan 5 ...
+                                    and number isGreaterThan -5
+
+                            </pre>
+                        </code>
+                    </li>
+                </ul>
+            </dd>
             <dt>declare function ... (withParameters ...)</dt>
             <dd>
                 <ul>
@@ -402,6 +418,8 @@ join: "a left-handed string" "a right-handed string"
 
             <dt>toArray ...</dt>
 
+            <dt>stringToNumber ...</dt>
+
             <dt>getCharacterAtIndex ...</dt>
 
             <dt>lengthOf ...</dt>
@@ -416,6 +434,7 @@ join: "a left-handed string" "a right-handed string"
 
             <dt>prompt ...</dt>
 
+            <dt>wait ...</dt>
         </dl>
 
         <h4>Logic</h4>
@@ -427,6 +446,8 @@ join: "a left-handed string" "a right-handed string"
         <h4>Mathematical</h4>
 
         <dl>
+            <dt>numberToString ...</dt>
+
             <dt>random (...)</dt>
 
             <dt>absoluteValue ...</dt>
