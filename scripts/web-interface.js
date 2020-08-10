@@ -3,10 +3,9 @@
 
     window.print = function (...args) {
         const content = args.join('');
-        const line = document.createElement('code');
-        line.textContent = content;
+        const currentContent = outputWindow.innerText;
 
-        outputWindow.appendChild(line);
+        outputWindow.innerText = currentContent + '\n' + content;
     }
 
     window.clear = function () {
