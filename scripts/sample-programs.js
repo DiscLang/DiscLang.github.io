@@ -66,7 +66,7 @@ const samplePrograms = (function () {
 	end
 
 	declare function getNewBoard
-		let width be 15
+		let width be 25
 		let height be 15
 		let board be (newArray:)
 
