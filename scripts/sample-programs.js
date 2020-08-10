@@ -66,8 +66,8 @@ const samplePrograms = (function () {
 	end
 
 	declare function getNewBoard
-		let width be 9
-		let height be 9
+		let width be 15
+		let height be 15
 		let board be (newArray:)
 
 		let currentRowIndex be 1
@@ -146,7 +146,7 @@ const samplePrograms = (function () {
 
 		update currentBoard to getNextBoard: currentBoard
 
-		wait: 0.001
+		wait: 0.0625
 	end
 
 end`
