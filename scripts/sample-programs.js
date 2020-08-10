@@ -7,7 +7,8 @@ const samplePrograms = (function () {
 	declare function isLiveCell ...
 		withParameters currentState xCoord yCoord
 
-		let currentCell be readFrom: (readFrom: currentState xCoord) yCoord
+		let currentRow be readFrom: currentState xCoord
+		let currentCell be readFrom: currentRow yCoord
 		
 		if (isNil: currentCell)
 			false
