@@ -291,13 +291,17 @@ else if count isGreaterThan 5
             <dd>
                 <ul>
                     <li>Declares a new function, optionally with parameters</li>
-                    <li>Example: 
+                    <li>Example:
                         <code>
                             <pre>
 declare function displayScore withParameters wins losses ties
     call clear
 
     print: join: "wins: " wins " losses: " losses " ties: " ties
+end
+
+declare function displayRandomNumber
+    print: random: 0 100
 end
                             </pre>
                         </code>
@@ -400,44 +404,6 @@ join: "a left-handed string" "a right-handed string"
             <dt>setOn ...</dt>
         </dl>
 
-        <h4>Nil</h4>
-
-        <dl>
-            <dt>newNil</dt>
-            
-            <dt>isNil ...</dt>
-        </dl>
-
-        <h4>String</h4>
-
-        <dl>
-            <dt>join ...</dt>
-
-            <dt>toLowerCase ...</dt>
-
-            <dt>toUpperCase ...</dt>
-
-            <dt>toArray ...</dt>
-
-            <dt>stringToNumber ...</dt>
-
-            <dt>getCharacterAtIndex ...</dt>
-
-            <dt>lengthOf ...</dt>
-        </dl>
-
-        <h4>User Input/Output</h4>
-
-        <dl>
-            <dt>print ...</dt>
-
-            <dt>clear</dt>
-
-            <dt>prompt ...</dt>
-
-            <dt>wait ...</dt>
-        </dl>
-
         <h4>Logic</h4>
 
         <dl>
@@ -470,6 +436,46 @@ join: "a left-handed string" "a right-handed string"
             <dt>round ...</dt>
 
             <dt>log ...</dt>
+        </dl>
+
+        <h4>Nil</h4>
+
+        <dl>
+            <dt>newNil</dt>
+
+            <dt>isNil ...</dt>
+        </dl>
+
+        <h4>String</h4>
+
+        <dl>
+            <dt>join ...</dt>
+
+            <dt>toLowerCase ...</dt>
+
+            <dt>toUpperCase ...</dt>
+
+            <dt>toArray ...</dt>
+
+            <dt>stringToNumber ...</dt>
+
+            <dt>getCharacterAtIndex ...</dt>
+
+            <dt>lengthOf ...</dt>
+        </dl>
+
+        <h4>User Input/Output</h4>
+
+        <dl>
+            <dt>print ...</dt>
+
+            <dt>clear</dt>
+
+            <dt>prompt ...</dt>
+
+            <dt>wait ...</dt>
+
+            <dt>readKey</dt>
         </dl>
     </div>
 </body>
