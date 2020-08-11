@@ -7,7 +7,8 @@ const samplePrograms = (function () {
 	declare function isLiveCell ...
 		withParameters currentState xCoord yCoord
 
-		let currentCell be readFrom: (readFrom: currentState xCoord) yCoord
+		let currentRow be readFrom: currentState xCoord
+		let currentCell be readFrom: currentRow yCoord
 		
 		if (isNil: currentCell)
 			false
@@ -17,7 +18,7 @@ const samplePrograms = (function () {
 
 	end
 
-	declare function between withParameters value min max
+	declare function isBetween withParameters value min max
 		(value isGreaterThan min) and (value isLessThan max)
 	end
 
@@ -52,11 +53,12 @@ const samplePrograms = (function () {
 		
 		let currentCell be readFrom: (readFrom: currentState xCoord) yCoord
 		let currentCellIsLiving be currentCell isEqualTo LIVE_CELL
+		let currentCellIsDead be currentCell isEqualTo DEAD_CELL
 
 		let livingNeighbors be getLivingNeighborCount: currentState xCoord yCoord
 
-		let isLivingAndStable be currentCellIsLiving and (:: livingNeighbors between 1 4)
-		let isReproducing be (not: currentCellIsLiving) and (livingNeighbors isEqualTo 3)
+		let isLivingAndStable be currentCellIsLiving and (:: livingNeighbors isBetween 1 4)
+		let isReproducing be currentCellIsDead and (livingNeighbors isEqualTo 3)
 
 		if isLivingAndStable or isReproducing
 			LIVE_CELL
@@ -66,7 +68,7 @@ const samplePrograms = (function () {
 	end
 
 	declare function getNewBoard
-		let width be 15
+		let width be 25
 		let height be 15
 		let board be (newArray:)
 
