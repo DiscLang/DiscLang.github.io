@@ -281,6 +281,12 @@ end`
     declare function runGameOfLife
         let currentBoard be call getNewBoard
 
+        call clearScreen
+        
+        print: "Starting board (randomized):"
+        printBoard: currentBoard
+        wait: 2
+        
         let counter be 1
         let terminationCount be 150
 
@@ -452,11 +458,19 @@ end`;
 	const coinToss = `begin
 	define sides as newArray: "Heads" "Tails"
 
-	let tossResult be readFrom: sides random: 1 3
+	call clearScreen
+
+	print: "Flipping coin..."
+	wait: 0.5 # wait so people can read the message
+
+	let flipResult be random: 1 3
+	let flipOutput be readFrom: sides flipResult
 	
-	print: "Coin Toss"
-	print: "---------"
-	print: tossResult
+	call clearScreen
+
+	print: "Coin Toss Result"
+	print: "----------------"
+	print: flipOutput
 end`;
 
 	const helloWorld = `begin
