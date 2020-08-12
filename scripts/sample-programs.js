@@ -427,7 +427,7 @@ end`;
 		"Coin Toss": coinToss,
 		"Monty Python": montyPython,
         "Rock, Paper, Scissors": rockPaperScissors,
-        "To Do List": rockPaperScissors,
+        "To Do List": toDoList,
         "Game of Life": gameOfLife
 	}
 })();
