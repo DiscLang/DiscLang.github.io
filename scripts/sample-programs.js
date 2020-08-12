@@ -1,5 +1,129 @@
 const samplePrograms = (function () {
 
+	const toDoList = `begin
+	# To Do List
+
+	let tasks be (newArray:)
+
+	declare function addATask
+		let newTask be prompt: "What do you want to do?"
+		appendTo: tasks newTask
+
+		call startToDoList
+	end
+
+	declare function completeATask
+		let taskId be prompt: "Which task is done? (enter number)"
+
+		removeFrom: tasks (stringToNumber: taskId)
+
+		call startToDoList
+	end
+
+	declare function exit
+		call clearScreen
+
+		print: "**********************"
+		print: "* See you next time! *"
+		print: "**********************"
+
+		wait: 2
+
+		call clearScreen
+	end
+
+	let mainMenu be (newDictionary:)
+	setOn: mainMenu "1" (newDictionary:)
+	setOn: mainMenu "2" (newDictionary:)
+	setOn: mainMenu "3" (newDictionary:)
+
+	setOn: (readFrom: mainMenu "1") "text" "Add a task"
+	setOn: (readFrom: mainMenu "2") "text" "Complete a task"
+	setOn: (readFrom: mainMenu "3") "text" "Exit"
+
+	setOn: (readFrom: mainMenu "1") "action" addATask
+	setOn: (readFrom: mainMenu "2") "action" completeATask
+	setOn: (readFrom: mainMenu "3") "action" exit
+
+	declare function getKeyOptions withParameters options
+		let keyText be ""
+		let keys be getKeysFrom: options
+		let currentIndex be 1
+
+		repeat while currentIndex isLessOrEqualTo (lengthOf: keys)
+			let currentKey be readFrom: keys currentIndex
+
+			if keyText isEqualTo ""
+				update keyText to currentKey
+			else if currentIndex isEqualTo (lengthOf: keys)
+				update keyText to join: keyText ", or " currentKey
+			else
+				update keyText to join: keyText ", " currentKey
+			end
+
+			update currentIndex to currentIndex + 1
+		end
+
+		(keyText)
+	end
+
+	declare function showMainMenu
+		let keys be getKeysFrom: mainMenu
+		let currentIndex be 1
+
+		repeat while (currentIndex isLessOrEqualTo (lengthOf: keys))
+			let currentKey be readFrom: keys currentIndex
+			print: join: currentIndex " - " ...
+				readFrom: (readFrom: mainMenu currentKey) "text"
+			update currentIndex to currentIndex + 1
+		end
+
+		print: ""
+		print: "Press 1, 2, or 3 to continue:"
+	end
+
+	declare function showToDoList
+		let currentIndex be 1
+
+		repeat while currentIndex isLessOrEqualTo lengthOf: tasks
+			print: join: currentIndex ") " readFrom: tasks currentIndex
+			update currentIndex to currentIndex + 1
+		end
+	end
+
+	declare function getMenuSelection
+		let selectedOption be ""
+		
+		repeat while not: hasKey: mainMenu selectedOption
+			update selectedOption to (readKey:)
+		end
+	end
+
+	declare function startToDoList
+		call clearScreen
+
+		print: "The Grand To Do List"
+		print: "--------------------"
+		print: ""
+		
+		if (lengthOf: tasks) isGreaterThan 0
+			call showToDoList
+			print: ""
+		end
+
+		print: "----- menu -----"
+		call showMainMenu
+
+		let menuSelection be (call getMenuSelection)
+		let menuOption be readFrom: mainMenu menuSelection
+		let action be readFrom: menuOption "action"
+
+		call action
+	end
+
+	call startToDoList
+end`
+
     const gameOfLife = `begin
 	define LIVE_CELL as "#"
 	define DEAD_CELL as "."
@@ -303,6 +427,7 @@ end`;
 		"Coin Toss": coinToss,
 		"Monty Python": montyPython,
         "Rock, Paper, Scissors": rockPaperScissors,
+        "To Do List": rockPaperScissors,
         "Game of Life": gameOfLife
 	}
 })();
