@@ -128,7 +128,10 @@ const samplePrograms = (function () {
 		print: "* The Grand To Do List *"
 		print: "************************"
 
-		wait: 2
+		print: ""
+		print: "This requires a keyboard, so it's not phone-friendly. :-("
+
+		wait: 5
 
 		call startToDoList
 	end
