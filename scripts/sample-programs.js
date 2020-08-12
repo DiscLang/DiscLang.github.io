@@ -121,7 +121,19 @@ const samplePrograms = (function () {
 		call action
 	end
 
-	call startToDoList
+	declare function runToDoList
+		call clearScreen
+
+		print: "************************"
+		print: "* The Grand To Do List *"
+		print: "************************"
+
+		wait: 2
+
+		call startToDoList
+	end
+
+	call runToDoList
 end`
 
     const gameOfLife = `begin
@@ -263,27 +275,53 @@ end`
 
 	end
 
-	let currentBoard be call getNewBoard
+    declare function runGameOfLife
+        let currentBoard be call getNewBoard
 
-    let counter be 1
-    let terminationCount be 150
-        
-	repeat while counter isLessThan terminationCount
-		call clearScreen
+        let counter be 1
+        let terminationCount be 150
 
-        if (counter isLessThan (terminationCount - 1))
-        	print: join: "Running. " (terminationCount - counter)
-        else
-        	print: "Done."
+        repeat while counter isLessThan terminationCount
+            call clearScreen
+
+            if (counter isLessThan (terminationCount - 1))
+                print: join: "Running. " (terminationCount - counter)
+            else
+                print: "Done."
+            end
+
+            printBoard: currentBoard
+
+            update currentBoard to getNextBoard: currentBoard
+            update counter to counter + 1
+            wait: 0.03125
         end
+    end
         
-		printBoard: currentBoard
+    declare function startGameOfLife withParameters countdown
+        call clearScreen
+        
+        print: "*************************"
+        print: "* Conway's Game of Life *"
+        print: "*************************"
+        
+        print: ""
+        print: "This is Conway's Game of Life. It is a visual, self-"
+        print: "evolving board called a cellular automaton. This board"
+        print: "is 25 x 15 which is just big enough to see some"
+        print: "interesting things happen."
+        print: ""
+        
+        if countdown isEqualTo 0
+        	call runGameOfLife
+        else
+            print: join: "Starting in " countdown " seconds"
+            wait: 1
+            startGameOfLife: (countdown - 1)
+        end
+    end
 
-		update currentBoard to getNextBoard: currentBoard
-		update counter to counter + 1
-		wait: 0.03125
-	end
-
+    startGameOfLife: 10
 end`
 
 	const montyPython = `begin
