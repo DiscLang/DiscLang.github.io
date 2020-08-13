@@ -126,8 +126,6 @@
                 loadSource(searchMap.source);
                 editor.setOption("readOnly", true);
 
-                console.log(exampleCodeSelectElement.options);
-
                 const option = Array.prototype.slice.call(exampleCodeSelectElement.options, 0)
                     .find(option => option.value === searchMap.source);
 
