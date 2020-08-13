@@ -1,5 +1,148 @@
 const samplePrograms = (function () {
 
+	const rule110 = `begin
+	define CELL_0 as " "
+	define CELL_1 as "#"
+
+	declare function getRandomCell
+		let cellOptions be newArray: CELL_0 CELL_1
+		let selectedCellValue be floor: random: 1 3
+
+		readFrom: cellOptions selectedCellValue
+	end
+
+	declare function createTopRow
+		let topRow be (newArray:)
+		let currentIndex be 1
+
+		repeat while currentIndex isLessOrEqualTo 50
+			update currentIndex to currentIndex + 1
+
+			appendTo: topRow call getRandomCell
+		end
+	end
+
+	declare function getCheckValue withParameters previousRow checkIndex
+        if checkIndex isLessThan 1
+    	    CELL_0
+		else if checkIndex isGreaterThan lengthOf: previousRow
+			CELL_0
+        else
+        	readFrom: previousRow checkIndex
+        end
+	end
+
+	declare function computeNewValue withParameters checkArray
+		let comparisonValue be join: ...
+			(readFrom: checkArray 1) ...
+			(readFrom: checkArray 2) ...
+			(readFrom: checkArray 3)
+
+		if comparisonValue isEqualTo (join: CELL_1 CELL_1 CELL_1)
+			CELL_0
+		else if comparisonValue isEqualTo (join: CELL_1 CELL_0 CELL_0)
+			CELL_0
+		else if comparisonValue isEqualTo (join: CELL_0 CELL_0 CELL_0)
+			CELL_0
+		else
+			CELL_1
+		end
+	end
+
+	declare function getNewValue withParameters previousRow currentIndex
+		let checkIndices be newArray: ...
+			(currentIndex - 1) ...
+			currentIndex ...
+			(currentIndex + 1)
+
+		let checkArray be (newArray:)
+		
+		let index be 1
+
+		repeat while index isLessOrEqualTo 3
+			let currentCheckIndex be readFrom: checkIndices index
+
+			update index to index + 1
+
+			appendTo: checkArray getCheckValue: previousRow currentCheckIndex
+		end
+
+		computeNewValue: checkArray
+	end
+
+	declare function getNextRow withParameters previousRow
+		let newRow be (newArray:)
+		let currentIndex be 1
+
+		repeat while currentIndex isLessOrEqualTo lengthOf: previousRow
+			let newValue be getNewValue: previousRow currentIndex
+
+			update currentIndex to currentIndex + 1
+
+			appendTo: newRow newValue
+		end
+	end
+
+	declare function printRow withParameters rowArray
+		let currentIndex be 1
+		let finalString be ""
+
+		repeat while currentIndex isLessOrEqualTo lengthOf: rowArray
+			update finalString to join: finalString (readFrom: rowArray currentIndex)
+
+			update currentIndex to currentIndex + 1
+		end
+
+		print: finalString
+	end
+
+	declare function displayRule110
+		call clearScreen
+
+		let nextRow be call createTopRow
+		let count be 1
+
+		repeat while count isLessThan 150
+			printRow: nextRow
+
+			wait: 0.0625
+			update nextRow to getNextRow: nextRow
+
+			update count to count + 1
+		end
+	end
+
+	declare function rule110Splash withParameters countdown
+		call clearScreen
+
+		print: "************"
+		print: "* Rule 110 *"
+		print: "************"
+
+		print: ""
+
+		print: "Rule 110, like Conway's Game of Life, is a cellular"
+		print: "automaton. The first row of this pattern is randomized,"
+		print: "and each row below it is computed from the row above. "
+		print: "These are both demonstrations of generative visualizations"
+		print: "produced by a program following simple rules."
+
+		print: ""
+
+		if countdown isGreaterThan 0
+			print: join: "Starting in: " countdown
+
+			wait: 1
+			rule110Splash: (countdown - 1)
+		else
+			call displayRule110
+		end
+	end
+	
+	rule110Splash: 10
+
+end`;
+
 	const toDoList = `begin
 	# To Do List
 
@@ -137,7 +280,7 @@ const samplePrograms = (function () {
 	end
 
 	call runToDoList
-end`
+end`;
 
     const gameOfLife = `begin
 	define LIVE_CELL as "#"
@@ -331,7 +474,7 @@ end`
     end
 
     startGameOfLife: 10
-end`
+end`;
 
 	const montyPython = `begin
     # call can be used instead of the colon notation
@@ -483,7 +626,8 @@ end`;
 		"Monty Python": montyPython,
         "Rock, Paper, Scissors": rockPaperScissors,
         "To Do List": toDoList,
-        "Game of Life": gameOfLife
+		"Game of Life": gameOfLife,
+		"Rule 110": rule110
 	}
 })();
 
