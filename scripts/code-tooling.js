@@ -1,10 +1,7 @@
 (function () {
     const outputWindow = document.getElementById('code-output');
     const runButton = document.getElementById('run-button');
-    const clearButton = document.getElementById('clear-button');
     const exampleCodeSelectElement = document.getElementById('example-code');
-    const toggleCodeView = document.getElementById('toggle-code-view');
-    const codeView = document.getElementById('code-view');
     const newProgramButton = document.getElementById('new-program');
     const codeExampleSelect = document.getElementById('load-example');
     const fullScreenLink = document.getElementById('view-full-screen');
@@ -23,8 +20,6 @@
 
     function loadSource(exampleName) {
         const source = samplePrograms[exampleName];
-
-        showCode();
 
         editor.setValue(source);
     }
@@ -51,33 +46,15 @@
         event.preventDefault();
 
         clearDisplay();
-        runProgram();
-    });
 
-    clearButton.addEventListener('click', function (event) {
-        event.preventDefault();
-
-        clearDisplay();
-    });
-
-    function showCode() {
-        if (codeView.className.includes('hidden')) {
-            codeView.className = codeView.className.replace('hidden', '').trim();
-            toggleCodeView.textContent = 'Hide Code';
-        }
-    }
-
-    toggleCodeView.addEventListener('click', function (event) {
-        event.preventDefault();
-
-        const codeViewClass = codeView.className;
-
-        if (codeViewClass.includes('hidden')) {
-            showCode();
-        } else {
-            codeView.className += ' hidden';
-            toggleCodeView.textContent = 'Show Code';
-        }
+        setTimeout(function () {
+            runButton.disabled = true;
+            
+            runProgram()
+                .then(function () {
+                    runButton.disabled = false;
+                });
+        }, 100);
     });
 
     function clearDisplay() {
@@ -89,7 +66,7 @@
             const programSource = editor.getValue();
 
             clearDisplay();
-            loadAndRunProgram(programSource, {});
+            return loadAndRunProgram(programSource, {});
         } catch (e) {
             const errorMessage = e.message;
 
