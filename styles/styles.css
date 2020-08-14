@@ -45,8 +45,20 @@ hr {
     background-color: #ccc;
 }
 
-div.container div div div.CodeMirror {
-    height: 430px;
+.editor-container {
+    z-index: 1001;
+    height: 450px;
+    position: relative;
+}
+
+.source-editor-container {
+    height: 100%;
+    position: relative;
+}
+
+.CodeMirror {
+    height: 100%;
+    width: 100%;
 }
 
 .hidden {

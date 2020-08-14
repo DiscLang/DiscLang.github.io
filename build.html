@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./styles/codemirror.css">
     <link rel="stylesheet" href="./styles/panda-syntax.css">
     <link rel="stylesheet" href="./styles/fullscreen.css">
+    
     <link rel="stylesheet" href="./styles/bootstrap.min.css">
 
     <link rel="stylesheet" href="./styles/styles.css">
@@ -30,12 +31,22 @@
 
     <div class="container control-set">
         <div class="row" id="code-view">
-            <div class="col-md-9 col-sm-12 order-md-2">
-                <div class="col-12 text-right">
-                    <a href="#" id="view-full-screen" title="Press F9 for full screen">View Code Full Screen (Esc to
-                        quit)</a>
-                </div>    
-                <textarea name="program-source" id="source-editor" cols="30" rows="20"></textarea>
+            <div class="col-md-9 col-sm-12 order-md-2 editor-container">
+                <div class="row">
+                    <div class="col-3">
+                        <select name="function-declarations" id="function-declarations">
+                            <option value="">Function Declarations</option>
+                        </select>
+                    </div>
+                    <div class="col-9 text-right">
+                        <a href="#" id="view-full-screen" title="Press F9 for full screen">View Code Full Screen (Esc to
+                            quit)</a>
+                    </div>    
+    
+                </div>
+                <div class="row source-editor-container">
+                    <textarea name="program-source" id="source-editor" cols="30" rows="20"></textarea>
+                </div>
             </div>
 
             <div class="col-md-3 col-sm-12 order-md-1">
@@ -103,24 +114,20 @@
         editorTextarea.value = getCurrentSource();
 
         var editor = CodeMirror.fromTextArea(editorTextarea, {
-            extraKeys: { "Ctrl-Space": "autocomplete" },
             lineNumbers: true,
             lineWrapping: true,
             mode: { name: 'disc-lang' },
             theme: "panda-syntax",
             indentUnit: 4,
             extraKeys: {
+                "Ctrl-Space": "autocomplete",
                 "F9": function (editor) {
                     editor.setOption("fullScreen", true);
                 },
-                Esc: function (editor) {
+                "Esc": function (editor) {
                     editor.setOption("fullScreen", false);
                 }
             }
-        });
-
-        editor.on('change', function (editor) {
-            saveCurrentSource(editor);
         });
     </script>
 
