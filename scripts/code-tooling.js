@@ -9,14 +9,71 @@
 
     const CURRENT_PROGRAM = 'currentProgram';
 
+    let clickCount = 0;
+    let lastClickTimerId = -1;
+
+    function setClickTimeout() {
+        clearTimeout(lastClickTimerId);
+
+        lastClickTimerId = setTimeout(function () {
+            clickCount = 0;
+        }, 250);
+    }
+
+    function showEditorExitInfo () {
+        $('#editor-exit')
+            .css({
+                opacity: '100%',
+                display: 'block'
+            });
+
+        setTimeout(function () {
+            $('#editor-exit')
+                .animate({ opacity: "0" }, 1000, function () {
+
+                });
+        }, 1000);
+    }
+
+    function toggleFullScreenMode(state) {
+        const isFullScreen = typeof state === 'boolean'
+            ? !state
+            : editor.getOption("fullScreen");
+
+        editor.setOption('fullScreen', !isFullScreen);
+
+        if (!isFullScreen) {
+            showEditorExitInfo();
+            editor.focus();
+        }
+    }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'F9') {
+            toggleFullScreenMode(true);
+        } else if (event.key === 'Escape') {
+            toggleFullScreenMode(false)
+        }
+    });
+
+    document.addEventListener('click', function () {
+        clickCount++;
+
+        if (clickCount === 4) {
+            clickCount = 0;
+
+            clearTimeout(lastClickTimerId);
+
+            toggleFullScreenMode();
+        } else {
+            setClickTimeout();
+        }
+    });
+
     fullScreenLink.addEventListener('click', function (event) {
         event.preventDefault();
 
-        console.log(editor.getOption("fullScreen"));
-
-        editor.setOption("fullScreen", true);
-
-        editor.focus();
+        toggleFullScreenMode();
     });
 
     function loadSource(exampleName) {
@@ -153,12 +210,12 @@
         const parsedSource = parseSource(editorSource);
 
         functionDeclarationsSelect.innerHTML = "<option value=\"\">Jump To</option>";
-        
+
         const functionsOptGroup = document.createElement('optgroup');
-        
+
         functionsOptGroup.setAttribute('label', 'Function Declarations');
         functionDeclarationsSelect.appendChild(functionsOptGroup);
-        
+
         const constantsOptGroup = document.createElement('optgroup');
 
         constantsOptGroup.setAttribute('label', 'Constant Defintions');

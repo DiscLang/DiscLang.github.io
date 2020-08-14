@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./styles/codemirror.css">
     <link rel="stylesheet" href="./styles/panda-syntax.css">
     <link rel="stylesheet" href="./styles/fullscreen.css">
-    
+
     <link rel="stylesheet" href="./styles/bootstrap.min.css">
 
     <link rel="stylesheet" href="./styles/styles.css">
@@ -17,6 +17,7 @@
 </head>
 
 <body id="build">
+    <div id="editor-exit">Press Escape, or Tap/Click 4 times to exit full screen</div>
     <header class="container">
         <h1>The <em>disc</em> Language : Create Something New</h1>
         <nav class="nav navbar">
@@ -39,10 +40,9 @@
                         </select>
                     </div>
                     <div class="col-9 text-right">
-                        <a href="#" id="view-full-screen" title="Press F9 for full screen">View Code Full Screen (Esc to
-                            quit)</a>
-                    </div>    
-    
+                        <a href="#" id="view-full-screen" title="Press F9 for full screen">View Code Full Screen</a>
+                    </div>
+
                 </div>
                 <div class="row source-editor-container">
                     <textarea name="program-source" id="source-editor" cols="30" rows="20"></textarea>
@@ -75,18 +75,15 @@
 
     </div>
 
-    <div class="modal bd-example-modal-lg" id="code-modal" tabindex="-1" role="dialog"
-        aria-labelledby="ProgramOutputScreen" aria-hidden="false">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <pre id="code-output"></pre>
-            </div>
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            Tap/click 4 times or press esc to exit full screen
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -121,12 +118,9 @@
             indentUnit: 4,
             extraKeys: {
                 "Ctrl-Space": "autocomplete",
-                "F9": function (editor) {
-                    editor.setOption("fullScreen", true);
-                },
-                "Esc": function (editor) {
-                    editor.setOption("fullScreen", false);
-                }
+                // "Esc": function (editor) {
+                //     editor.setOption("fullScreen", false);
+                // }
             }
         });
     </script>
