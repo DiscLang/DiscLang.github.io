@@ -42,6 +42,7 @@
 
         editor.focus();
         editor.setCursor(1, 0);
+        setFunctionDeclarations();
     });
 
     runButton.addEventListener('click', function (event) {
