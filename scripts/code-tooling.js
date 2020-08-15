@@ -6,11 +6,16 @@
     const codeExampleSelect = document.getElementById('load-example');
     const fullScreenLink = document.getElementById('view-full-screen');
     const functionDeclarationsSelect = document.getElementById('function-declarations');
+    const programOutput = document.getElementById('code-output');
 
     const CURRENT_PROGRAM = 'currentProgram';
 
     let clickCount = 0;
     let lastClickTimerId = -1;
+
+    programOutput.addEventListener('keypress', function (event) {
+        event.preventDefault();
+    })
 
     function setClickTimeout() {
         clearTimeout(lastClickTimerId);
@@ -20,7 +25,7 @@
         }, 250);
     }
 
-    function showEditorExitInfo () {
+    function showEditorExitInfo() {
         $('#editor-exit')
             .css({
                 opacity: '100%',
@@ -30,7 +35,7 @@
         setTimeout(function () {
             $('#editor-exit')
                 .animate({ opacity: "0" }, 1000, function () {
-
+                    $('#editor-exit').css({ display: 'none' });
                 });
         }, 1000);
     }
@@ -113,12 +118,20 @@
             runProgram()
                 .then(function () {
                     runButton.disabled = false;
+                })
+                .catch(function () {
+                    runButton.disabled = false;
                 });
         }, 100);
     });
 
     function clearDisplay() {
         outputWindow.innerHTML = '';
+    }
+
+    function printError(errorMessage) {
+        window.clear();
+        window.print(errorMessage);
     }
 
     function runProgram() {
@@ -128,17 +141,8 @@
             clearDisplay();
             return loadAndRunProgram(programSource, {});
         } catch (e) {
-            const errorMessage = e.message;
-
-            const errorElement = document.createElement('h3');
-            errorElement.className = "run-error";
-            errorElement.textContent = errorMessage;
-
-            outputWindow.appendChild(errorElement);
+            printError(e.message);
         }
-
-        hasChanged = false;
-        lastChanged = Date.now();
     }
 
     window.runProgram = function () {
@@ -206,43 +210,47 @@
     }
 
     function setFunctionDeclarations() {
-        const editorSource = editor.getValue();
-        const parsedSource = parseSource(editorSource);
+        try {
+            const editorSource = editor.getValue();
+            const parsedSource = parseSource(editorSource);
 
-        functionDeclarationsSelect.innerHTML = "<option value=\"\">Jump To</option>";
+            functionDeclarationsSelect.innerHTML = "<option value=\"\">Jump To</option>";
 
-        const functionsOptGroup = document.createElement('optgroup');
+            const functionsOptGroup = document.createElement('optgroup');
 
-        functionsOptGroup.setAttribute('label', 'Function Declarations');
-        functionDeclarationsSelect.appendChild(functionsOptGroup);
+            functionsOptGroup.setAttribute('label', 'Function Declarations');
+            functionDeclarationsSelect.appendChild(functionsOptGroup);
 
-        const constantsOptGroup = document.createElement('optgroup');
+            const constantsOptGroup = document.createElement('optgroup');
 
-        constantsOptGroup.setAttribute('label', 'Constant Defintions');
-        functionDeclarationsSelect.appendChild(constantsOptGroup);
+            constantsOptGroup.setAttribute('label', 'Constant Defintions');
+            functionDeclarationsSelect.appendChild(constantsOptGroup);
 
-        parsedSource.body.forEach(function (node) {
+            parsedSource.body.forEach(function (node) {
 
-            if (node.type === 'FunctionDeclaration') {
-                const line = node.line;
-                const name = node.name.originalName;
+                if (node.type === 'FunctionDeclaration') {
+                    const line = node.line;
+                    const name = node.name.originalName;
 
-                const newOption = document.createElement('option');
-                newOption.value = line;
-                newOption.textContent = name;
+                    const newOption = document.createElement('option');
+                    newOption.value = line;
+                    newOption.textContent = name;
 
-                functionsOptGroup.appendChild(newOption);
-            } else if (node.type === 'InitializationExpression' && node.variableType === 'define') {
-                const line = node.line;
-                const name = node.identifier.originalName;
+                    functionsOptGroup.appendChild(newOption);
+                } else if (node.type === 'InitializationExpression' && node.variableType === 'define') {
+                    const line = node.line;
+                    const name = node.identifier.originalName;
 
-                const newOption = document.createElement('option');
-                newOption.value = line;
-                newOption.textContent = name;
+                    const newOption = document.createElement('option');
+                    newOption.value = line;
+                    newOption.textContent = name;
 
-                constantsOptGroup.appendChild(newOption);
-            }
-        });
+                    constantsOptGroup.appendChild(newOption);
+                }
+            });
+        } catch (e) {
+            printError(e.message);
+        }
     }
 
     functionDeclarationsSelect.addEventListener('change', function (event) {

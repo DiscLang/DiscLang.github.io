@@ -3,12 +3,14 @@
 
     window.print = function (...args) {
         const content = args.join('');
-        const currentContent = outputWindow.innerText;
+        const currentContent = outputWindow.value;
 
-        outputWindow.innerText = currentContent + '\n' + content;
+        outputWindow.value = currentContent + '\n' + content;
     }
+    
+    window.definedPrompt = prompt;
 
     window.clear = function () {
-        outputWindow.innerHTML = '';
+        outputWindow.value = '';
     }
 })();

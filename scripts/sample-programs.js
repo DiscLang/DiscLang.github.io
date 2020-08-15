@@ -516,9 +516,9 @@ end`;
 end`;
 
 	const rockPaperScissors = `begin
-    define ROCK as "rock"
-    define PAPER as "paper"
-    define SCISSORS as "scissors"
+    define ROCK as "r"
+    define PAPER as "p"
+    define SCISSORS as "s"
 
     let options be newArray: ROCK PAPER SCISSORS
     let playAgain be true
@@ -543,6 +543,11 @@ end`;
         (rockWin or paperWin or scissorsWin)
     end
 
+	declare function promptUser withParameters message
+		print: message
+		call readKey
+	end
+
     declare function wasGameATie withParameters userChoice computerChoice
         (userChoice isEqualTo computerChoice)
     end
@@ -551,7 +556,8 @@ end`;
         let userChoice be ""
 
         repeat while not: ((userChoice isEqualTo ROCK) or (userChoice isEqualTo PAPER) or (userChoice isEqualTo SCISSORS))
-            update userChoice to toLowerCase: (prompt: "Rock, paper, or scissors? ")
+			print: ""
+            update userChoice to toLowerCase: (promptUser: "Press a key: (r)ock, (p)aper, (s)cissors")
         end
     end
 
@@ -559,7 +565,8 @@ end`;
         let rematch be ""
 
         repeat while (not: (rematch isEqualTo "y")) and (not: (rematch isEqualTo "n"))
-            update rematch to toLowerCase: (prompt: join: gameMessage " Rematch? (y/n)")
+			print: ""
+            update rematch to toLowerCase: (promptUser: "Rematch? (press a key y/n)")
         end
 
         (rematch isEqualTo "y")

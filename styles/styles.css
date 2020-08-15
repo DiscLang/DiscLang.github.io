@@ -12,6 +12,7 @@ button, select {
     padding: 15px;
     margin: 15px;
     border: 1px solid #999;
+    display: block;
     height: 450px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 16px;
