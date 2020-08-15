@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The disc Programming Language -- What is it?</title>
+
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+
+
+</head>
+
+<body id="getting-started">
+    <header class="container">
+        <h1>The <em>disc</em> Language : Getting Started</h1>
+
+        <nav class="nav navbar" role="navigation">
+            <ul class="nav-list text-center">
+                <li><a href="../" id="home-link">home</a></li>
+                <li><a href="./" id="getting-started-link">getting started</a></li>
+                <li><a href="../build.html" id="build-link">create something</a></li>
+                <li><a href="../command-reference.html" id="command-reference-link">language reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container" role="main">
+        <section aria-labelledby="user-input">
+            <h2 id="user-input">User Input</h2>
+
+            <p>
+                Programs can be interesting even if they don't interact with the user, but people often get tired of
+                them pretty quickly. <em>Disc</em> language provides two ways of accepting user input. We will take a
+                look at both of them on this page, and use them in small programs. This information will be useful as
+                example code and tutorials get more complicated.
+            </p>
+        </section>
+
+        <section aria-labelledby="prompt">
+            <h3 id="prompt">Prompting</h3>
+
+            <p>
+                Prompting the user is how you can collect typed answers from the user. In the browser, you will see a
+                prompt dialog pop up, which will allow users to enter information from the keyboard.
+            </p>
+
+            <p>
+                We can enhance our original "Hello, World" program with a prompt. In this example, we will add a prompt
+                to get the user's name, and then greet them directly. Let's take a look.
+            </p>
+
+            <code>
+                <pre>
+begin
+    let name be prompt: "What is your name?"
+    let message be join: "Hello, " name "!"
+    print: message 
+end
+                </pre>
+            </code>
+
+            <p>
+                Read this code aloud and think about what it does. We have some new pieces to understand. Let's have a
+                look at each of them and what they do for the program.
+            </p>
+
+            <p>
+                Once you think you get it, head over to the <a href="../build.html">create something area, and try writing it yourself!</a>
+            </p>
+
+            <section aria-labelledby="let-be-construct">
+                <h4 id="let-be-construct">let ... be ...</h4>
+
+                <p>
+                    The "let ... be ..." construct is known as <em>variable initialization</em>. That's a fancy way of
+                    saying we're giving some value a name so we can refer to it later. The grammar of this code works like
+                    this:
+                </p>
+    
+                <ul>
+                    <li>
+                        <em>let</em> -- this says we are going to create a new variable
+                    </li>
+                    <li>
+                        <em>... (name)</em> -- the first set of ellipses is where the variable name goes
+                    </li>
+                    <li>
+                        <em>be</em> -- this is referred to as <em>assignment</em>. This means we are assigning a value to
+                        the name we gave the variable.
+                    </li>
+                    <li>
+                        <em>... (value)</em> -- This is the value assigned to our new variable.
+                    </li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="join-function">
+                <h4 id="join-function">Join</h4>
+
+                <p>
+                    The <code>join</code> function takes several values and sticks them all together as a single string. This behavior is known as <em>concatenation</em>. In this program we are using <code>join</code> to combine the hello message and the name we received from the user.
+                </p>
+            </section>
+
+            <section aria-labelledby="combining-functions">
+                <h4 id="combining-functions">Combining Functions</h4>
+
+                <p>
+                    When you are feeling confident with each piece of this program, try combining functions together to get the same behavior. Though it is not always advisable to combine lots of complicated behavior together on a single line, sometimes the program makes more sense when functions are combined in useful ways. The following examples are different ways of writing the same program. Read them aloud and see which makes the most sense to you!
+                </p>
+
+                <code>
+                    <pre>
+begin
+    let name be prompt: "What is your name?"
+
+    # we moved message "inline" eliminating the variable
+    print: join: "Hello, " name "!" 
+end
+                    </pre>
+                </code>
+
+                <code>
+                    <pre>
+begin
+    # Here, the entire program is written on one line.
+    print: join: "Hello, " (prompt: "What is your name?") "!" 
+end
+                    </pre>
+                </code>
+
+            </section>
+        </section>
+
+    </div>
+</body>
+
+</html>
