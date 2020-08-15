@@ -271,9 +271,6 @@ end`;
 		print: "* The Grand To Do List *"
 		print: "************************"
 
-		print: ""
-		print: "This requires a keyboard, so it's not phone-friendly. :-("
-
 		wait: 5
 
 		call startToDoList

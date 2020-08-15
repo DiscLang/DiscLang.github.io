@@ -126,6 +126,8 @@
         clearDisplay();
 
         setTimeout(function () {
+            document.getElementById('code-output').focus();
+            
             runButton.disabled = true;
 
             runProgram()
