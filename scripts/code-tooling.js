@@ -14,7 +14,20 @@
     let lastClickTimerId = -1;
 
     programOutput.addEventListener('keypress', function (event) {
-        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    programOutput.addEventListener('input', function (event) {
+        event.stopPropagation();
+
+        if(typeof event.data === 'string') {
+            programOutput.value = programOutput.getAttribute('data-last-output');
+
+            const keypressEvent = new Event('keypress');
+            keypressEvent.key = event.data;
+    
+            document.dispatchEvent(keypressEvent);    
+        }
     })
 
     function setClickTimeout() {
