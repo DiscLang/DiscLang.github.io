@@ -54,8 +54,11 @@
             <code>
                 <pre>
 begin
+    call clearScreen
+
     let name be prompt: "What is your name?"
     let message be join: "Hello, " name "!"
+
     print: message 
 end
                 </pre>
@@ -110,7 +113,30 @@ end
             <h3 id="readkey">readKey</h3>
 
             <p>
-                The <code>readKey</code> function is a way to capture single key strokes from a user. This can be especially useful for menus and other quick interactions with the user. Something that is common is the "press any key to continue...". This can be implemented with the <code>readKey</code> function.
+                The <code>readKey</code> function is a way to capture single key strokes from a user. This can be especially useful for menus and other quick interactions with the user. Something that is common is the "press any key to exit...". This can be implemented with the <code>readKey</code> function.
+            </p>
+
+            <code>
+                <pre>
+begin
+    call clearScreen
+
+    let name be prompt: "What is your name?"
+    let message be join: "Hello, " name "!"
+    print: message 
+
+    print: ""
+    print: "Press any key to exit..."
+
+    call readKey
+
+    call clearScreen
+end
+                </pre>
+            </code>
+
+            <p>
+                The program above is basically a little extra behavior on top of our "Hello World" program. This will do the same thing our program above did, plus it will wait until the user presses a key before it completes running. There are other uses as well:
             </p>
 
             <code>
@@ -123,7 +149,7 @@ begin
     print: ""
     print: "Press any key to continue..."
 
-    (readKey:)
+    call readKey
 end
                 </pre>
             </code>
@@ -139,14 +165,20 @@ end
             <code>
                 <pre>
 begin
+    call clearScreen
+    
     print: "Press a key: "
-    let pressedKey be (readKey:)
+    let pressedKey be call readKey
 
     print: ""
     print: join: "You pressed: " pressedKey
 end
                 </pre>
             </code>
+
+            <p>
+                In the end, user input can be used to add interactivity to your programs, and increase engagement in your program. Really, user input gives you a broader way to get creative. The rest of the program is up to you!
+            </p>
         </section>
 
         <section aria-labelledby="next-steps">
