@@ -104,6 +104,58 @@ end
                 </p>
             </section>
 
+        </section>
+
+        <section aria-labelledby="readkey">
+            <h3 id="readkey">readKey</h3>
+
+            <p>
+                The <code>readKey</code> function is a way to capture single key strokes from a user. This can be especially useful for menus and other quick interactions with the user. Something that is common is the "press any key to continue...". This can be implemented with the <code>readKey</code> function.
+            </p>
+
+            <code>
+                <pre>
+begin
+    print: "****************************"
+    print: "* My Program Splash Screen *"
+    print: "****************************"
+
+    print: ""
+    print: "Press any key to continue..."
+
+    (readKey:)
+end
+                </pre>
+            </code>
+
+            <p>
+                The code above will print out a splash screen, and then wait for the user to press a key before continuing. If you run the "To Do List", "Game of Life", or "Rule 110" programs, you will see a splash screen like this. I opted for a countdown timer, but the <code>readKey</code> function would also work quite well.
+            </p>
+
+            <p>
+                The <code>readKey</code> function also returns the key pressed by the user. The following code will print any key the user presses:
+            </p>
+
+            <code>
+                <pre>
+begin
+    print: "Press a key: "
+    let pressedKey be (readKey:)
+
+    print: ""
+    print: join: "You pressed: " pressedKey
+end
+                </pre>
+            </code>
+        </section>
+
+        <section aria-labelledby="next-steps">
+            <h3 id="next-steps">Next Steps In Your Program</h3>
+
+            <p>
+                The ideas presented in this section are other ways to think about the code you write. Some of the ideas here may not feel like a better approach, and that's okay. Ideally what you will discover is, there is always another way to solve the same problem.
+            </p>
+
             <section aria-labelledby="combining-functions">
                 <h4 id="combining-functions">Combining Functions</h4>
 
@@ -133,7 +185,6 @@ end
 
             </section>
         </section>
-
     </div>
 </body>
 
