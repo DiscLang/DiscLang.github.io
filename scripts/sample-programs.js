@@ -603,14 +603,21 @@ end`;
         end
     end
 
+	declare function addToDictionary withParameters dictionaryToModify
+		declare function addTo withParameters key value
+        	setOn: dictionaryToModify key value
+        end
+	end
+
 	declare function playRockPaperScissors
         let playAgain be true
 
 		let scores be (newDictionary:)
-
-		setOn: scores WINS 0
-		setOn: scores LOSSES 0
-		setOn: scores TIES 0
+        let addToScores be addToDictionary: scores
+                
+		addToScores: WINS 0
+		addToScores: LOSSES 0
+		addToScores: TIES 0
 
         repeat while playAgain
             displayScore: scores
