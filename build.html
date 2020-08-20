@@ -34,13 +34,13 @@
         <div class="row" id="code-view">
             <div class="col-md-9 col-sm-12 order-md-2 editor-container clear">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-3 jump-to-div">
                         <select name="function-declarations" id="function-declarations">
                             <option value="">Function Declarations</option>
                         </select>
                     </div>
                     <div class="col-9 text-right">
-                        <a href="#" id="view-full-screen" title="Press F9 for full screen">View Code Full Screen (or
+                        <a href="#" id="view-full-screen" title="Press F9 for full screen">Toggle Code Full Screen (or
                             press F9)</a>
                     </div>
 
@@ -63,12 +63,12 @@
                 <hr>
                 <div>
                     <button id="run-button" class="btn btn-primary" data-toggle="modal" data-target="#code-modal">
-                        (re)Run This Program
+                        (re)Run This Program [F10]
                     </button>
 
                     <button id="open-display" class="btn btn-outline-secondary" data-toggle="modal"
                         data-target="#code-modal">
-                        Open Program Window
+                        Show/Hide Program Display
                     </button>
                 </div>
             </div>
@@ -78,7 +78,7 @@
 
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body">
-            Tap/click 4 times or press esc to exit full screen
+            Tap/click 4 times or press F9 to exit full screen
         </div>
     </div>
 
@@ -87,6 +87,27 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <textarea id="code-output"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal bd-example-modal-lg" id="keybindings-modal" tabindex="-1" role="dialog"
+        aria-labelledby="ProgramOutputScreen" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Editor Keybindings (Hot Keys)</h3>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li><strong>Ctrl+E</strong> -- Focus on Editor</li>
+                        <li><strong>Ctrl+J</strong> -- Jump to Definition or Declaration</li>
+                        <li><strong>Escape</strong> -- Exit and Return to Editor</li>
+                        <li><strong>F1</strong> -- Show Keybindings Modal</li>
+                        <li><strong>F9</strong> -- Toggle Code Editor Full Screen Mode</li>
+                        <li><strong>F10</strong> -- Run Program</li>
+                    </ul>    
+                </div>
             </div>
         </div>
     </div>

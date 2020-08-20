@@ -7,6 +7,7 @@
     const fullScreenLink = document.getElementById('view-full-screen');
     const functionDeclarationsSelect = document.getElementById('function-declarations');
     const programOutput = document.getElementById('code-output');
+    const keybindingsModal = $('#keybindings-modal');
 
     const CURRENT_PROGRAM = 'currentProgram';
 
@@ -20,13 +21,13 @@
     programOutput.addEventListener('input', function (event) {
         event.stopPropagation();
 
-        if(typeof event.data === 'string') {
+        if (typeof event.data === 'string') {
             programOutput.value = programOutput.getAttribute('data-last-output');
 
             const keypressEvent = new Event('keypress');
             keypressEvent.key = event.data;
-    
-            document.dispatchEvent(keypressEvent);    
+
+            document.dispatchEvent(keypressEvent);
         }
     })
 
@@ -66,11 +67,41 @@
         }
     }
 
+    let currentPressedKeys = [];
+
+    document.addEventListener('keyup', function (event) {
+        event.preventDefault();
+
+        const key = event.key;
+        const keyIndex = currentPressedKeys.indexOf(key);
+
+        if (keyIndex >= 0) {
+            currentPressedKeys.splice(keyIndex, 1);
+        }
+    });
+
+    function controlOrCommandIsPressed() {
+        return currentPressedKeys.includes('Control')
+            || currentPressedKeys.includes('Meta');
+    }
+
     document.addEventListener('keydown', function (event) {
+        currentPressedKeys.push(event.key);
+
         if (event.key === 'F9') {
-            toggleFullScreenMode(true);
+            toggleFullScreenMode();
+        } else if (event.key === 'F10') {
+            runButton.click();
+        } else if (event.key === 'F1') {
+            keybindingsModal.modal('toggle');
         } else if (event.key === 'Escape') {
-            toggleFullScreenMode(false)
+            setTimeout(() => {
+                editor.focus();
+            }, 100);
+        } else if (controlOrCommandIsPressed() && event.key.toLowerCase() === 'j') {
+            functionDeclarationsSelect.focus();
+        } else if (controlOrCommandIsPressed() && event.key.toLowerCase() === 'e') {
+            editor.focus();
         }
     });
 
@@ -120,14 +151,12 @@
         setFunctionDeclarations();
     });
 
-    runButton.addEventListener('click', function (event) {
-        event.preventDefault();
-
+    function runCurrentProgram() {
         clearDisplay();
 
         setTimeout(function () {
             document.getElementById('code-output').focus();
-            
+
             runButton.disabled = true;
 
             runProgram()
@@ -138,6 +167,12 @@
                     runButton.disabled = false;
                 });
         }, 100);
+    }
+
+    runButton.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        runCurrentProgram();
     });
 
     function clearDisplay() {

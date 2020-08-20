@@ -516,15 +516,29 @@ end`;
     define ROCK as "r"
     define PAPER as "p"
     define SCISSORS as "s"
+	define WINS as "wins"
+	define LOSSES as "losses"
+	define TIES as "ties"
 
-    let options be newArray: ROCK PAPER SCISSORS
-    let playAgain be true
+	define PLAY_OPTIONS as newArray: ROCK PAPER SCISSORS
+	declare function contains withParameters values testValue
+		let valueWasFound be false
+		let currentIndex be 1
+		let valuesLength be lengthOf: values
 
-    let wins be 0
-    let losses be 0
-    let ties be 0
+		repeat while (not: valueWasFound) and (currentIndex isLessOrEqualTo valuesLength)
+			let currentValue be readFrom: values currentIndex
 
-    declare function displayScore
+			update currentIndex to currentIndex + 1
+			update valueWasFound to currentValue isEqualTo testValue
+		end
+	end
+
+    declare function displayScore withParameters scores
+		let wins be readFrom: scores WINS
+		let losses be readFrom: scores LOSSES
+		let ties be readFrom: scores TIES
+
         call clearScreen
 
 		print: "Rock, Paper, Scissors"
@@ -552,7 +566,7 @@ end`;
     declare function getUserChoice
         let userChoice be ""
 
-        repeat while not: ((userChoice isEqualTo ROCK) or (userChoice isEqualTo PAPER) or (userChoice isEqualTo SCISSORS))
+        repeat while not: (:: PLAY_OPTIONS contains userChoice)
 			print: ""
             update userChoice to toLowerCase: (promptUser: "Press a key: (r)ock, (p)aper, (s)cissors")
         end
@@ -560,8 +574,9 @@ end`;
 
     declare function haveRematch withParameters gameMessage
         let rematch be ""
+		let validResponses be (newArray: "y" "n")
 
-        repeat while (not: (rematch isEqualTo "y")) and (not: (rematch isEqualTo "n"))
+        repeat while not: (:: validResponses contains rematch)
 			print: ""
             update rematch to toLowerCase: (promptUser: "Rematch? (press a key y/n)")
         end
@@ -569,37 +584,55 @@ end`;
         (rematch isEqualTo "y")
     end
 
-    declare function updateScoreAndGetMessage withParameters userChoice computerChoice
+    declare function updateScoreAndGetMessage withParameters scores userChoice computerChoice
         if (didUserWin: userChoice computerChoice)
-            update wins to wins + 1
+			let winsCount be readFrom: scores WINS
+            updateOn: scores WINS (winsCount + 1)
+
             "You won!"
         else if (wasGameATie: userChoice computerChoice)
-            update ties to ties + 1
+			let tiesCount be readFrom: scores TIES
+            updateOn: scores TIES (tiesCount + 1)
+
             "Tie game."
         else
-            update losses to losses + 1
+			let lossesCount be readFrom: scores LOSSES
+            updateOn: scores LOSSES (lossesCount + 1)
+
             "You lost, better luck next time."
         end
     end
 
-    repeat while playAgain
-        call displayScore
+	declare function playRockPaperScissors
+        let playAgain be true
 
-        let computerChoice be readFrom: options (random: 1 4)
-        let userChoice be (call getUserChoice)
+		let scores be (newDictionary:)
 
-        print: join: "The computer chose: " computerChoice
-        print: join: "You chose: " userChoice
+		setOn: scores WINS 0
+		setOn: scores LOSSES 0
+		setOn: scores TIES 0
 
-        let message be updateScoreAndGetMessage: userChoice computerChoice
+        repeat while playAgain
+            displayScore: scores
 
-        print: message
+            let computerChoice be readFrom: PLAY_OPTIONS (random: 1 4)
+            let userChoice be (call getUserChoice)
 
-        update playAgain to haveRematch: message
-    end
+           print: join: "The computer chose: " computerChoice
+            print: join: "You chose: " userChoice
 
-    call displayScore
+            let message be updateScoreAndGetMessage: scores userChoice computerChoice
 
+            print: message
+
+            update playAgain to haveRematch: message
+        end
+
+        displayScore: scores
+	end
+
+	# Run that program!
+	call playRockPaperScissors
 end`;
 
 	const coinToss = `begin

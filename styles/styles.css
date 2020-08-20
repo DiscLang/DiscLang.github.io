@@ -108,3 +108,9 @@ ul.nav-list>li>a {
     background-color: #99cc99;
     z-index: 1001;
 }
+
+#function-declarations:focus {
+    display: block;
+    position: relative;
+    z-index: 2001;
+}
