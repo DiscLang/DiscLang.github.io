@@ -88,7 +88,13 @@
     document.addEventListener('keydown', function (event) {
         currentPressedKeys.push(event.key);
 
-        if (event.key === 'F9') {
+        if (controlOrCommandIsPressed() && event.key.toLowerCase() === 'j') {
+            functionDeclarationsSelect.focus();
+        } else if (controlOrCommandIsPressed() && event.key.toLowerCase() === 'e') {
+            editor.focus();
+        } else if (controlOrCommandIsPressed() && event.key === 'Escape') {
+            editor.getInputField().blur();
+        } else if (event.key === 'F9') {
             toggleFullScreenMode();
         } else if (event.key === 'F10') {
             runButton.click();
@@ -98,10 +104,6 @@
             setTimeout(() => {
                 editor.focus();
             }, 100);
-        } else if (controlOrCommandIsPressed() && event.key.toLowerCase() === 'j') {
-            functionDeclarationsSelect.focus();
-        } else if (controlOrCommandIsPressed() && event.key.toLowerCase() === 'e') {
-            editor.focus();
         }
     });
 
