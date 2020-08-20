@@ -668,10 +668,10 @@ end`;
 		"Hello World": helloWorld,
 		"Coin Toss": coinToss,
 		"Monty Python": montyPython,
-        "Rock, Paper, Scissors": rockPaperScissors,
         "To Do List": toDoList,
 		"Game of Life": gameOfLife,
-		"Rule 110": rule110
+		"Rule 110": rule110,
+        "Rock, Paper, Scissors": rockPaperScissors,
 	}
 })();
 
