@@ -625,7 +625,7 @@ end`;
             let computerChoice be readFrom: PLAY_OPTIONS (random: 1 4)
             let userChoice be (call getUserChoice)
 
-           print: join: "The computer chose: " computerChoice
+            print: join: "The computer chose: " computerChoice
             print: join: "You chose: " userChoice
 
             let message be updateScoreAndGetMessage: scores userChoice computerChoice
