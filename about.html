@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The disc Programming Language -- What is it?</title>
+
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+
+
+</head>
+
+<body id="about">
+    <header class="container">
+        <h1>About The <em>disc</em> Language</h1>
+
+        <nav class="nav navbar">
+            <ul class="nav-list text-center">
+                <li><a href="./" id="home-link">home</a></li>
+                <li><a href="./getting-started/" id="getting-started-link">getting started</a></li>
+                <li><a href="./build.html" id="build-link">create something</a></li>
+                <li><a href="./command-reference.html" id="command-reference-link">language reference</a></li>
+                <li><a href="./about.html" id="about-link">about <em>disc</em> lang design</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <p>
+            This page is for design information about <em>disc</em> lang, and contains little information that a
+            beginning programmer would find helpful. If you want to find out more about the design choices of the
+            language, or if you want to build your own language at some point, this page may be interesting to you.
+            After all, we are all beginners at something!
+        </p>
+
+        <div aria-labelledby="#inspiration">
+            <h3 id="inspiration">Inspiration for <em>disc</em> Lang Look and Feel</h3>
+
+            <p>
+                In the discussion on the home page, I discussed where I originally got the idea for creating
+                <em>disc</em> lang in the first place. However, I took inspiration from languages which already exist to
+                create the overall hand-feel, so to speak. In alphabetical order, I drew inspiration from:
+            </p>
+
+            <ul>
+                <li>BASIC</li>
+                <li>Haskell</li>
+                <li>Lisp</li>
+                <li>Python</li>
+                <li>Ruby</li>
+                <li>Io</li>
+                <li>Scala</li>
+            </ul>
+
+            <p>
+                Some of these languages are expressed more predominantly in the visual aspects of programs written in
+                <em>disc</em> lang. Others provided insight into how I might steer into, or away from, a certain
+                practice, pattern, or internal behavior.
+            </p>
+
+            <p>
+                The goal of the final design was to blend learning, and a natural flow of the language. A novice
+                programmer would, ideally, understand how the parts of the language fit together, so long as they speak
+                English. (More on this later.) An experienced programmer would, ideally, see the natural start and end
+                of concepts within the language.
+            </p>
+
+            <p>
+                Programming should be fun! I borrowed against the idea, in Ruby, that a programming language would
+                provide a fun while programming with it. Hopefully <em>disc</em> lang delivered on that promise. I spent
+                many hours writing programs in order to find places where behaviors felt odd, out of place, or simply
+                misnamed. My hope is this paid off.
+            </p>
+        </div>
+
+        <div aria-labelledby="#behavior">
+            <h3 id="behavior">Language Behaviors</h3>
+
+            <p>
+                The behavior of <em>disc</em> lang should be predictable, before all else. The behavioral goal of
+                <em>disc</em> lang was to create a smooth, normalized behavioral experience with as few warts as I could
+                manage. No language is perfect, and this one is no different. Nevertheless, it should be reasonable to
+                explore any programming concept in the small with <em>disc</em> lang.
+            </p>
+
+            <p>
+                Choices of programming guidance were made. Since <em>disc</em> lang is intended to be an accessible
+                first programming language, there were affordances built into the language to help people discover the
+                kinds of mistakes which can easily lead to very long debugging sessions. This list is a set of certain
+                key ideas.
+            </p>
+
+            <ul>
+                <li>Obvious block demarcation
+                    <ul>
+                        <li>Every block must conclude with an <code>end</code> statement on its own line</li>
+                        <li>Failure to include an <code>end</code> for any block is a parse error, and will halt
+                            execution</li>
+                        <li>Messaging is as clear as possible about what was missed</li>
+                    </ul>
+                </li>
+                <li>Functions are first class, but...
+                    <ul>
+                        <li>Functions are treated as values for any program</li>
+                        <li>Anonymous functions do not exist; all functions must be declared by name</li>
+                        <li>All functions are defined as constant within their scope, preventing accidental overwriting
+                        </li>
+                    </ul>
+                </li>
+                <li>Variable types are invariant
+                    <ul>
+                        <li>All types are dynamically managed at runtime</li>
+                        <li>Once a variable is initialized, its type is strongly enforced; e.g. if a variable id
+                            initialized with a string, it can only ever store strings</li>
+                        <li>All variables must be initialized with an acceptable value; this ensures a variable always
+                            has a sensible default value</li>
+                        <li>All of this is to ensure the novice programmer receives appropriate messaging when they do
+                            something which could lead to an error</li>
+                    </ul>
+                </li>
+                <li>Reading over rigidity
+                    <ul>
+                        <li>There are more core functions than operators, operators tend to be less flexible</li>
+                        <li>Optional reader-friendly alternatives, for example:
+                            <ul>
+                                <li>Function call versus colon: <code>call functionName with arg1 arg2</code> versus
+                                    <code>functionName: arg1 arg2</code></li>
+                                <li>Standard call versus infix notation: <code>between: testValue min max</code> versus
+                                    <code>:: value between min max</code></li>
+                            </ul>
+                        </li>
+                        <li>Alternative notation can be ignored for the sake of consistency or reader normalization</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
