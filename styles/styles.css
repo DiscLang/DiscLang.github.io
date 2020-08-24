@@ -2,7 +2,12 @@ body{
     padding-bottom: 85px;
 }
 
-body#home #home-link, body#build #build-link, body#getting-started #getting-started-link, body#command-reference #command-reference-link {
+body#home #home-link,
+body#build #build-link,
+body#getting-started #getting-started-link,
+body#command-reference #command-reference-link,
+body#about #about-link
+{
     font-weight: bold;
 }
 
